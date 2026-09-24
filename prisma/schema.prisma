@@ -1,0 +1,123 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum ResourceType {
+  HOSPITAL
+  CRISIS_CENTER
+  POLICE_STATION
+  LEGAL_AID
+  SHELTER
+  HELPLINE
+  COMMUNITY_SUPPORT
+}
+
+enum VerificationTier {
+  TIER_1_OFFICIAL_GOVERNMENT
+  TIER_2_VETTED_NGO
+  TIER_3_COMMUNITY_VERIFIED
+}
+
+enum VerificationStatus {
+  VERIFIED
+  PENDING_REVIEW
+  NEEDS_UPDATE
+  EXPIRED
+  REJECTED
+}
+
+enum TriageDomain {
+  MEDICAL
+  EMOTIONAL
+  LEGAL
+  GENERAL
+}
+
+model Resource {
+  id                String             @id @default(cuid())
+  name              String
+  type              ResourceType
+  domains           TriageDomain[]
+  description       String
+  address           String?
+  city              String
+  state             String
+  country           String             @default("India")
+  latitude          Float?
+  longitude         Float?
+  primaryPhone      String
+  secondaryPhone    String?
+  email             String?
+  website           String?
+  is24x7            Boolean            @default(false)
+  operatingHours    String?
+  servicesOffered   String[]
+  languages         String[]           @default(["English", "Hindi"])
+  verificationTier  VerificationTier   @default(TIER_2_VETTED_NGO)
+  status            VerificationStatus @default(VERIFIED)
+  lastVerifiedAt    DateTime           @default(now())
+  verifiedBy        String
+  verificationProof String?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  verifications     ResourceVerification[]
+  auditLogs         ResourceAuditLog[]
+
+  @@index([city, state])
+  @@index([type])
+  @@index([status])
+}
+
+model ResourceVerification {
+  id              String             @id @default(cuid())
+  resourceId      String
+  resource        Resource           @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  verifierName    String
+  verifierRole    String
+  checkType       String
+  findings        String
+  newStatus       VerificationStatus
+  verifiedAt      DateTime           @default(now())
+  nextReviewDate  DateTime
+}
+
+model ResourceAuditLog {
+  id              String             @id @default(cuid())
+  resourceId      String
+  resource        Resource           @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  action          String
+  actor           String
+  details         String
+  timestamp       DateTime           @default(now())
+}
+
+model KnowledgeChunk {
+  id              String             @id @default(cuid())
+  domain          TriageDomain
+  topic           String
+  title           String
+  content         String
+  sourceTitle     String
+  sourceUrl       String?
+  publishedYear   Int?
+  jurisdiction    String             @default("National / India")
+  isVerified      Boolean            @default(true)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  @@index([domain])
+  @@index([topic])
+}
+
+model SystemMetric {
+  id              String             @id @default(cuid())
+  metricType      String
+  counter         Int                @default(1)
+  recordedDate    DateTime           @default(now())
+}

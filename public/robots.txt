@@ -1,0 +1,15 @@
+# SecuTrail — Privacy-Preserving Robots Policy
+User-agent: *
+Allow: /
+Allow: /awareness
+Allow: /awareness/*
+Allow: /privacy
+Allow: /resources
+
+# Prevent web crawlers from indexing sensitive triage and survivor flow pages
+Disallow: /survivor
+Disallow: /survivor/*
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /api
+Disallow: /api/*
