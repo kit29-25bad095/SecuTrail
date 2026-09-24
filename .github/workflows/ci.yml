@@ -21,7 +21,7 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      run: npm ci
+      run: npm install
 
     - name: Generate Prisma Client
       run: npx prisma generate
@@ -34,6 +34,13 @@ jobs:
 
     - name: Run automated test suites
       run: npm test
+      env:
+        NEXT_PUBLIC_APP_URL: "https://secutrail.org"
+        NEXT_PUBLIC_APP_NAME: "SecuTrail"
+        NEXT_PUBLIC_QUICK_EXIT_URL: "https://www.google.com"
+        NEXT_PUBLIC_ENABLE_DEMO_MODE: "true"
+        RESOURCE_PROVIDER: "demo"
+        LLM_PROVIDER: "mock"
 
     - name: Run production build
       run: npm run build
