@@ -4,12 +4,15 @@
 
 [![Next.js](https://img.shields.io/badge/Next.js-14.2.35-black?style=flat&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x_Strict-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
-[![Privacy](https://img.shields.io/badge/Privacy-Zero--PII-teal?style=flat&logo=shield)](https://secutrail.org/privacy)
-[![Tests](https://img.shields.io/badge/Automated_Tests-115_Passed-success?style=flat)](https://github.com/secutrail)
+[![Live Deployment](https://img.shields.io/badge/Live_Deployment-secu--trail.vercel.app-success?style=flat&logo=vercel)](https://secu-trail.vercel.app)
+[![Privacy](https://img.shields.io/badge/Privacy-Zero--PII-teal?style=flat&logo=shield)](https://secu-trail.vercel.app/privacy)
+[![Tests](https://img.shields.io/badge/Automated_Tests-115_Passed-success?style=flat)](https://github.com/kit29-25bad095/SecuTrail)
 [![Accessibility](https://img.shields.io/badge/A11y-WCAG_AA_Compliant-purple?style=flat)](https://www.w3.org/WAI/standards-guidelines/wcag/)
 [![License](https://img.shields.io/badge/License-MIT-gray?style=flat)](LICENSE)
 
 **SecuTrail** is a production-grade, privacy-first digital safety platform designed to provide verified information, decision support, and crisis resources for survivors of sexual assault and community supporters.
+
+🌐 **Live Production URL:** [https://secu-trail.vercel.app](https://secu-trail.vercel.app)
 
 SecuTrail is **not** an open-ended conversational chatbot. It is a deterministic, multi-layered decision architecture combining proactive prevention education with trauma-informed survivor triage, verified statutory knowledge grounding (RAG), and instant emergency Quick Exit.
 
@@ -76,7 +79,7 @@ flowchart TD
 ### 1. Installation
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/secutrail.git
+git clone https://github.com/kit29-25bad095/SecuTrail.git
 cd secutrail
 
 # Install dependencies
