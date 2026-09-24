@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json().catch(() => ({}));
-    const text = body?.text || "";
+    const text = body?.text || body?.input || "";
 
     if (!text || typeof text !== "string") {
       return NextResponse.json(
