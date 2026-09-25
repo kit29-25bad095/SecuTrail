@@ -9,7 +9,7 @@
     "postinstall": "npx prisma generate",
     "start": "next start",
     "lint": "next lint",
-    "test": "npx tsx tests/secutrail.test.ts && npx tsx tests/resource-verification.test.ts && npx tsx tests/security-audit.test.ts"
+    "test": "npx tsx tests/secutrail.test.ts && npx tsx tests/resource-verification.test.ts && npx tsx tests/security-audit.test.ts && npx tsx tests/conversational-context.test.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.18.0",

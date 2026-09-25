@@ -7,6 +7,8 @@ export const SECUTRAIL_STORAGE_KEYS = [
   "secutrail_session",
   "secutrail_session_id",
   "secutrail_chat",
+  "secutrail_chat_messages",
+  "secutrail_chat_context",
   "secutrail_triage",
   "secutrail_location",
   "secutrail_state",

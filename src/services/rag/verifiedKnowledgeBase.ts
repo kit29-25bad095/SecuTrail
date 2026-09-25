@@ -53,6 +53,45 @@ export const VERIFIED_SOURCES: Record<string, SourceCitation> = {
     contentVersion: "Revised 2020",
     verificationStatus: "VERIFIED",
   },
+  pocso_act_statute: {
+    id: "src-pocso-2012",
+    title: "Protection of Children from Sexual Offences (POCSO) Act, 2012",
+    organization: "Ministry of Women and Child Development, Govt of India",
+    url: "https://wcd.nic.in",
+    authority: "STATUTORY_BODY",
+    jurisdiction: "India",
+    publicationYear: 2012,
+    lastVerified: "2026-08-15T00:00:00Z",
+    nextReview: "2026-11-15T00:00:00Z",
+    contentVersion: "Amended 2019",
+    verificationStatus: "VERIFIED",
+  },
+  posh_act_statute: {
+    id: "src-posh-2013",
+    title: "Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013",
+    organization: "Ministry of Women and Child Development, Govt of India",
+    url: "https://wcd.nic.in",
+    authority: "STATUTORY_BODY",
+    jurisdiction: "India",
+    publicationYear: 2013,
+    lastVerified: "2026-08-15T00:00:00Z",
+    nextReview: "2026-11-15T00:00:00Z",
+    contentVersion: "1.0",
+    verificationStatus: "VERIFIED",
+  },
+  it_act_statute: {
+    id: "src-it-act-2000",
+    title: "Information Technology Act, 2000 (Sections 66E, 67A - Privacy & Digital Evidence)",
+    organization: "Ministry of Electronics and Information Technology (MeitY), Govt of India",
+    url: "https://meity.gov.in",
+    authority: "STATUTORY_BODY",
+    jurisdiction: "India",
+    publicationYear: 2008,
+    lastVerified: "2026-08-15T00:00:00Z",
+    nextReview: "2026-11-15T00:00:00Z",
+    contentVersion: "Amended 2008",
+    verificationStatus: "VERIFIED",
+  },
 };
 
 export const VERIFIED_KNOWLEDGE_CHUNKS: KnowledgeSnippet[] = [
@@ -145,6 +184,50 @@ export const VERIFIED_KNOWLEDGE_CHUNKS: KnowledgeSnippet[] = [
       "Secondary victimization occurs when support systems, interrogators, or acquaintances subject a survivor to victim-blaming, skepticism, or intrusive moral questioning. Supportive interaction requires unconditional belief, emotional safety, validation of shock symptoms, and absolute respect for survivor agency.",
     category: "EMOTIONAL",
     source: VERIFIED_SOURCES.who_clinical_rape,
+    isVerified: true,
+  },
+
+  // ------------------------------------------------------------
+  // AWARENESS, CONSENT, BOUNDARIES & BYSTANDER CHUNKS
+  // ------------------------------------------------------------
+  {
+    id: "chunk-aware-consent-standards",
+    topic: "CONSENT_STANDARDS_AND_AGE",
+    title: "Standards of Active Consent and Statutory Age in India",
+    content:
+      "Active consent is an unambiguous, voluntary, and ongoing agreement to engage in specific sexual activity, which can be freely revoked at any time. Silence, submission, lack of physical protest, intoxication, or marital/dating status do not constitute consent. Under Section 63 of Bharatiya Nyaya Sanhita (BNS 2023) and Section 2(1)(d) of the POCSO Act 2012, the statutory age of consent in India is strictly 18 years. Any sexual act with a person under 18 is legally an offence regardless of mutual agreement.",
+    category: "GENERAL",
+    source: VERIFIED_SOURCES.bns_2023_statute,
+    isVerified: true,
+  },
+  {
+    id: "chunk-aware-boundaries-digital",
+    topic: "PERSONAL_AND_DIGITAL_BOUNDARIES",
+    title: "Personal Boundaries and Digital Privacy Protections",
+    content:
+      "Boundaries define personal limits regarding emotional communication, physical space, and digital interactions. In India, non-consensual capture, sharing, or blackmailing with intimate photographs or videos is punishable under Sections 66E and 67A of the Information Technology Act (up to 5 years imprisonment) and Section 77 of the BNS 2023 (Voyeurism). Survivors are advised to preserve digital records (screenshots, sender handles, message URLs) without altering original files before blocking the offender.",
+    category: "GENERAL",
+    source: VERIFIED_SOURCES.it_act_statute,
+    isVerified: true,
+  },
+  {
+    id: "chunk-aware-bystander-5ds",
+    topic: "BYSTANDER_INTERVENTION_5DS",
+    title: "The 5Ds Active Bystander Intervention Model",
+    content:
+      "The 5Ds Active Bystander Model provides practical, safe techniques to interrupt harassment or violence: 1. Direct (confronting the harassment directly if physically safe); 2. Distract (creating an indirect diversion, such as asking for transit directions or dropping an item); 3. Delegate (alerting security personnel, transit staff, or bystanders); 4. Delay (checking in with the targeted person afterward to offer quiet support); and 5. Document (safely recording date, time, and details from a distance, then providing the notes to the survivor for their decision).",
+    category: "BYSTANDER",
+    source: VERIFIED_SOURCES.who_clinical_rape,
+    isVerified: true,
+  },
+  {
+    id: "chunk-leg-reporting-avenues",
+    topic: "VOLUNTARY_REPORTING_AND_SUPPORT_AVENUES",
+    title: "Voluntary Reporting Avenues and Support Portals",
+    content:
+      "Reporting a sexual offence is entirely voluntary for an adult survivor. Multiple avenues exist: 1. Police Zero-FIR (Section 173 BNSS) at any police station; 2. Internal Complaints Committees (ICC) for workplace harassment under the POSH Act 2013; 3. National Commission for Women (NCW 24/7 Helpline 7827170170); 4. Ministry of Home Affairs Cybercrime Portal (cybercrime.gov.in / 1930); and 5. One Stop Centres (Sakhi) under MWCD providing medical, legal, and counseling services under one roof. Medical treatment and forensic examination at hospitals do not require a mandatory police report.",
+    category: "LEGAL",
+    source: VERIFIED_SOURCES.bns_2023_statute,
     isVerified: true,
   },
 ];

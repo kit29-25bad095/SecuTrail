@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { EphemeralConversationContext } from "@/types";
 
 export interface EphemeralSessionData {
   id: string;
@@ -13,6 +14,7 @@ export interface EphemeralSessionData {
     districtName?: string;
     emergencyDetected?: boolean;
   };
+  conversationContext?: EphemeralConversationContext;
 }
 
 // In-memory store for high-speed ephemeral access with zero persistence footprint
@@ -75,11 +77,11 @@ export class SessionManager {
   }
 
   /**
-   * Updates temporary session state (e.g. triage preferences)
+   * Updates temporary session state (e.g. triage preferences or conversation context)
    */
   public static updateSession(
     identifier: string,
-    updates: Partial<Pick<EphemeralSessionData, "triage">>
+    updates: Partial<Pick<EphemeralSessionData, "triage" | "conversationContext">>
   ): EphemeralSessionData | null {
     const session = this.getSession(identifier);
     if (!session) return null;
@@ -91,9 +93,25 @@ export class SessionManager {
       };
     }
 
+    if (updates.conversationContext) {
+      session.conversationContext = {
+        ...updates.conversationContext,
+      };
+    }
+
     session.lastActiveAt = Date.now();
     session.expiresAt = Date.now() + SESSION_TTL_MS;
     return session;
+  }
+
+  /**
+   * Updates ephemeral conversation context for the active session
+   */
+  public static updateConversationContext(
+    identifier: string,
+    context: EphemeralConversationContext
+  ): EphemeralSessionData | null {
+    return this.updateSession(identifier, { conversationContext: context });
   }
 
   /**

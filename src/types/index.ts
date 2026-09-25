@@ -125,3 +125,45 @@ export interface AgencyDecisionOption {
   potentialConsiderations: string[];
   sources: string[];
 }
+
+export type ConversationIntent =
+  | "EMOTIONAL_SUPPORT"
+  | "LEGAL_AWARENESS"
+  | "GENERAL_AWARENESS"
+  | "MEDICAL_SUPPORT"
+  | "IMMEDIATE_SAFETY"
+  | "MINOR_INVOLVEMENT"
+  | "TOPIC_RESET";
+
+export interface EphemeralConversationContext {
+  conversationTopic: string;
+  detectedIntent: ConversationIntent;
+  emotionalContext: string[];
+  safetyLevel: UrgencyLevel;
+  previousUserMessages: string[];
+  previousAssistantResponses: string[];
+  activeSupportPath: SupportDomain | "SAFETY" | "EDUCATION";
+  verifiedInformationUsed: string[];
+  turnCount: number;
+  lastReferencedEntity?: string;
+  unverifiedQueryDetected?: boolean;
+}
+
+export interface ConversationTurnRequest {
+  message: string;
+  sessionId?: string;
+  context?: EphemeralConversationContext;
+  state?: string;
+  district?: string;
+}
+
+export interface ConversationTurnResponse {
+  response: string;
+  context: EphemeralConversationContext;
+  safetyClassification: SafetyClassificationResult;
+  relevantDomains: SupportDomain[];
+  citations: SourceCitation[];
+  agencyOptions: AgencyDecisionOption[];
+  verifiedResources: VerifiedResource[];
+  guardrailFlags: string[];
+}

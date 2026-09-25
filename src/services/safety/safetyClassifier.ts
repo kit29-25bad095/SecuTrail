@@ -7,8 +7,8 @@ import {
 
 // Critical danger patterns triggering deterministic emergency override
 const IMMEDIATE_DANGER_PATTERNS = [
-  /\b(attack(ed|ing)?|beaten|hitting me|choking|held captive|hostage|knife|gun|weapon|kill(ing)? me|locked in|in danger|someone is breaking in|he is outside|following me|help me now|call police now|immediate help|unsafe right now)\b/i,
-  /\b(i'?m in danger|help me please|save me|he will kill me|she will kill me|emergency(?!\s+contracept))\b/i,
+  /\b(attack(ed|ing)?|beaten|hitting me|choking|held captive|hostage|knife|gun|weapon|kill(ing)? me|locked in|in danger|immediate danger|in immediate danger|someone is breaking in|he is outside|following me|help me now|call police now|immediate help|unsafe right now)\b/i,
+  /\b(i'?m in (immediate )?danger|help me please|save me|he will kill me|she will kill me|emergency(?!\s+contracept))\b/i,
 ];
 
 // Self-harm / suicide patterns

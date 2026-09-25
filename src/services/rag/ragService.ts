@@ -75,7 +75,7 @@ export class VerifiedRAGService implements IVerifiedRAGService {
 
       // Keyword token matches
       let titleTopicMatch = 0;
-      const ABBREVIATIONS = new Set(["pep", "hiv", "fir", "sti", "std", "iud", "bns", "cwc"]);
+      const ABBREVIATIONS = new Set(["pep", "hiv", "fir", "sti", "std", "iud", "bns", "cwc", "posh", "pocso", "icc", "ncw"]);
       const titleWords = new Set(titleLower.replace(/[^\w\s]/g, " ").split(/\s+/));
       const topicWords = new Set(topicLower.replace(/[^\w\s]/g, " ").split(/\s+/));
 
