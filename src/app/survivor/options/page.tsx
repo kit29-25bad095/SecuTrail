@@ -10,7 +10,6 @@ import {
   Sparkles,
   ArrowRight,
   Database,
-  Bot,
   RotateCcw,
 } from "lucide-react";
 import { SupportDomain } from "@/types";
@@ -138,13 +137,6 @@ export default function SurvivorOptionsPage() {
             <Button variant="outline" size="sm" className="w-full text-xs border-slate-700 bg-slate-800 text-white hover:bg-slate-700 gap-1.5">
               <Database className="h-3.5 w-3.5" />
               <span>Verified Resources</span>
-            </Button>
-          </Link>
-
-          <Link href="/survivor/assistant" className="flex-1 sm:flex-initial">
-            <Button variant="outline" size="sm" className="w-full text-xs border-slate-700 bg-slate-800 text-white hover:bg-slate-700 gap-1.5">
-              <Bot className="h-3.5 w-3.5" />
-              <span>Decision Assistant</span>
             </Button>
           </Link>
         </div>

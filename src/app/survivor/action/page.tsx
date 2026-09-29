@@ -14,7 +14,6 @@ import {
   Clock,
   ChevronRight,
   LogOut,
-  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
@@ -403,13 +402,6 @@ export default function SurvivorActionPage() {
         </div>
 
         <div className="flex items-center gap-3 w-full sm:w-auto">
-          <Link href="/survivor/assistant" className="flex-1 sm:flex-initial">
-            <Button variant="outline" size="sm" className="w-full text-xs gap-1.5">
-              <FileText className="h-3.5 w-3.5" />
-              <span>Ask Decision Assistant</span>
-            </Button>
-          </Link>
-
           <Button
             type="button"
             variant="destructive"

@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   ShieldAlert,
   GitFork,
-  Bot,
   Database,
   ArrowRight,
   Lock,
@@ -86,13 +85,13 @@ export default function SurvivorHomePage() {
               </Button>
             </Link>
 
-            <Link href="/survivor/triage" className="flex-1">
+            <Link href="/survivor/choose" className="flex-1">
               <Button
                 variant="default"
                 className="w-full gap-2 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white h-11 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
               >
                 <CheckCircle2 className="h-4 w-4 text-emerald-400 dark:text-emerald-600" />
-                <span>I Am Physically Safe (Proceed to Triage)</span>
+                <span>I Am Physically Safe (Choose Support Pathway)</span>
               </Button>
             </Link>
           </div>
@@ -152,22 +151,22 @@ export default function SurvivorHomePage() {
           <div className="rounded-2xl border bg-card p-4 space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-bold text-slate-400">04</span>
-              <Database className="h-4 w-4 text-emerald-600" />
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
             </div>
-            <h3 className="font-bold text-sm text-foreground">Verified Resources</h3>
+            <h3 className="font-bold text-sm text-foreground">Action Checklist</h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Audited One Stop Centres, legal clinics, and 24/7 helplines.
+              Personalized, print-ready action checklist with instant session wipe.
             </p>
           </div>
 
           <div className="rounded-2xl border bg-card p-4 space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-bold text-slate-400">05</span>
-              <Bot className="h-4 w-4 text-blue-600" />
+              <Database className="h-4 w-4 text-blue-600" />
             </div>
-            <h3 className="font-bold text-sm text-foreground">Verified Assistant</h3>
+            <h3 className="font-bold text-sm text-foreground">Verified Resources</h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Grounded answers strictly cited to BNS 2023, MoHFW, and NALSA.
+              Audited One Stop Centres, legal clinics, and 24/7 helplines.
             </p>
           </div>
         </div>

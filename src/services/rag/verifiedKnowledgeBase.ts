@@ -230,4 +230,94 @@ export const VERIFIED_KNOWLEDGE_CHUNKS: KnowledgeSnippet[] = [
     source: VERIFIED_SOURCES.bns_2023_statute,
     isVerified: true,
   },
+  {
+    id: "chunk-med-evidence-preservation",
+    topic: "FORENSIC_EVIDENCE_PRESERVATION",
+    title: "Forensic Evidence Preservation Guidelines",
+    content:
+      "Under Ministry of Health (MoHFW) protocols, forensic evidence is most viable when collected as early as possible (within 72 to 96 hours). If you plan to seek a forensic medical examination, it is recommended not to bathe, shower, douche, brush teeth, or change clothing beforehand if possible. If clothing has already been changed, place each unwashed item into a clean paper bag (not plastic, which retains moisture and degrades DNA). Even if bathing or clothing changes have already occurred, medical treatment (such as HIV PEP and STI prevention) remains fully accessible and highly effective.",
+    category: "MEDICAL",
+    source: VERIFIED_SOURCES.mohfw_pep_protocol,
+    isVerified: true,
+  },
+  {
+    id: "chunk-leg-police-refusal-recourse",
+    topic: "POLICE_REFUSAL_RECOURSE",
+    title: "Statutory Recourse if Police Refuse to Register FIR",
+    content:
+      "Under Indian statutory law, police cannot legally refuse to register an FIR for a cognizable sexual offence. Under Section 199 BNS (formerly Section 166A IPC), any police officer who knowingly disobeys the law by refusing to record information in sexual offence cases faces mandatory imprisonment of 1 to 2 years. If an officer refuses: 1. Under Section 173(4) BNSS, you can send the written complaint by registered post or electronically to the Superintendent of Police (SP) or Commissioner; 2. Under Section 175(3) BNSS (formerly 156(3) CrPC), an application can be filed before the Judicial Magistrate with the assistance of a free legal aid counsel from DLSA (15100).",
+    category: "LEGAL",
+    source: VERIFIED_SOURCES.bns_2023_statute,
+    isVerified: true,
+  },
+  {
+    id: "chunk-leg-posh-workplace",
+    topic: "POSH_WORKPLACE_HARASSMENT",
+    title: "Workplace Sexual Harassment Protections (POSH Act 2013)",
+    content:
+      "Under the Sexual Harassment of Women at Workplace (POSH) Act 2013, every organization with 10 or more employees must maintain an Internal Complaints Committee (ICC) presided over by a senior woman employee. Complaints can be filed within 3 months of the incident (extendable by another 3 months by ICC). The ICC provides interim relief including workplace transfer, paid leave up to 3 months, or restraining the respondent from evaluating performance. Strict confidentiality is mandated under Section 16 POSH Act, penalizing unauthorized disclosure.",
+    category: "LEGAL",
+    source: VERIFIED_SOURCES.posh_act_statute,
+    isVerified: true,
+  },
+  {
+    id: "chunk-leg-nalsa-compensation",
+    topic: "NALSA_VICTIM_COMPENSATION",
+    title: "NALSA Victim Compensation Scheme and Financial Assistance",
+    content:
+      "Under Section 396 BNSS and the NALSA Compensation Scheme for Women Victims/Survivors of Sexual Assault, survivors are statutorily entitled to financial compensation ranging between ₹4,00,000 and ₹10,00,000 (or higher for severe physical trauma) through the District Legal Services Authority (DLSA). Interim financial compensation can be granted urgently for immediate medical treatments, reconstructive surgery, and basic sustenance even prior to the completion of police investigation or trial.",
+    category: "LEGAL",
+    source: VERIFIED_SOURCES.nalsa_guidelines,
+    isVerified: true,
+  },
+  {
+    id: "chunk-res-one-stop-centre",
+    topic: "ONE_STOP_CENTRE_SAKHI",
+    title: "One Stop Centres (Sakhi Scheme, MWCD)",
+    content:
+      "One Stop Centres (Sakhi Centres), established by the Ministry of Women and Child Development (MWCD), provide integrated 24/7 crisis support under a single roof: 1. Immediate medical first-aid and referral; 2. Police assistance and zero-pressure filing facilitation; 3. Psycho-social counseling; 4. Free legal aid and video conferencing with magistrates; and 5. Temporary safe emergency shelter for up to 5 days. Access is free and reachable directly via the 181 Women Helpline.",
+    category: "LEGAL",
+    source: VERIFIED_SOURCES.bns_2023_statute,
+    isVerified: true,
+  },
+  {
+    id: "chunk-emo-self-blame",
+    topic: "TRAUMA_SELF_BLAME_VALIDATION",
+    title: "Neurobiology of Trauma, Freeze Response, and Self-Blame",
+    content:
+      "Trauma science and clinical psychological guidelines emphasize: sexual assault is 100% the responsibility of the perpetrator. Self-blame and guilt are common cognitive reactions where the survivor's brain attempts to regain perceived control over a terrifying, chaotic violation. Freezing, dissociation, or tonic immobility are involuntary autonomic nervous system survival responses driven by brainstem activation—they are not agreement, submission, or consent.",
+    category: "EMOTIONAL",
+    source: VERIFIED_SOURCES.who_clinical_rape,
+    isVerified: true,
+  },
+  {
+    id: "chunk-emo-insomnia-panic",
+    topic: "INSOMNIA_PANIC_STABILIZATION",
+    title: "Trauma-Informed Coping for Acute Insomnia, Panic, and Hypervigilance",
+    content:
+      "Acute panic, racing heart, and severe sleep disturbances following trauma are manifestations of prolonged sympathetic nervous system activation ('fight-or-flight'). Stabilizing interventions include: sensory grounding (5-4-3-2-1 exercise), slow diaphragmatic breathing (inhale 4 seconds, hold 4 seconds, exhale 6 seconds to trigger vagal tone), maintaining a safe lit sleeping space, and accessing 24/7 confidential psychological first aid via Tele-MANAS (14416).",
+    category: "EMOTIONAL",
+    source: VERIFIED_SOURCES.who_clinical_rape,
+    isVerified: true,
+  },
+  {
+    id: "chunk-leg-identity-protection",
+    topic: "SURVIVOR_IDENTITY_PROTECTION",
+    title: "Mandatory Survivor Identity Privacy (Section 72 BNS 2023)",
+    content:
+      "Under Section 72 of the Bharatiya Nyaya Sanhita (BNS 2023), revealing the name, photograph, residence, workplace, or any identifying detail of a sexual assault survivor in print, television, digital media, or online forums is a non-bailable criminal offence punishable with imprisonment up to 2 years and a fine. Judicial proceedings are mandated to be conducted in-camera (behind closed doors with only necessary parties present) under Section 366 BNSS.",
+    category: "LEGAL",
+    source: VERIFIED_SOURCES.bns_2023_statute,
+    isVerified: true,
+  },
+  {
+    id: "chunk-leg-digital-evidence-cybercrime",
+    topic: "DIGITAL_HARASSMENT_CYBERCRIME",
+    title: "Digital Harassment, Image Abuse, and Cyber Evidence Preservation",
+    content:
+      "Under Sections 66E, 67, and 67A of the Information Technology Act 2000 and Section 77 BNS (Voyeurism), capturing, distributing, or blackmailing with non-consensual private or intimate images carries criminal penalties of 3 to 7 years imprisonment. Survivors should take unedited screenshots showing timestamps, phone numbers, and profile URLs before blocking the perpetrator. Complaints can be lodged anonymously through the National Cyber Crime Reporting Portal (cybercrime.gov.in) or by calling 1930.",
+    category: "GENERAL",
+    source: VERIFIED_SOURCES.it_act_statute,
+    isVerified: true,
+  },
 ];

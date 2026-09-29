@@ -8,7 +8,6 @@ import {
   GitFork,
   Scale,
   Database,
-  Bot,
   Info,
   CheckCircle2,
 } from "lucide-react";
@@ -53,7 +52,6 @@ export default function SurvivorLayout({
     { href: "/survivor/options", label: "03 Your Options", icon: Scale },
     { href: "/survivor/action", label: "04 Action Plan", icon: CheckCircle2 },
     { href: "/survivor/resources", label: "05 Verified Resources", icon: Database },
-    { href: "/survivor/assistant", label: "06 Decision Assistant", icon: Bot },
   ];
 
   return (
