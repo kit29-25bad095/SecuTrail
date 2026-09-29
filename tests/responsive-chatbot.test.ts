@@ -156,6 +156,32 @@ async function runResponsiveTests() {
     assert.notEqual(res1.response, res3.response, "PEP and Consent responses must be completely distinct");
   });
 
+  // Test J: Sentiment balance on trust/privacy
+  await it("Provides sentimentally balanced reassurance for trust and privacy queries", async () => {
+    const res = await AdaptiveChatEngine.processTurn({
+      message: "Can I trust you? Is this conversation private or will anyone know?",
+      sessionId: session.id,
+    });
+
+    assert.equal(res.context.conversationTopic, "PRIVACY_AND_TRUST_ASSURANCE");
+    assert.ok(res.response.includes("Zero Data Retention"), "Must assure zero data retention");
+    assert.ok(res.response.includes("In-Memory Only"), "Must explain in-memory session");
+    assert.ok(res.response.includes("Quick Exit"), "Must reference Quick Exit");
+  });
+
+  // Test K: Sentiment balance on feeling broken / recovery validation
+  await it("Provides sentimentally balanced validation for feeling broken or hopeless", async () => {
+    const res = await AdaptiveChatEngine.processTurn({
+      message: "I feel broken and hopeless, will I ever heal?",
+      sessionId: session.id,
+    });
+
+    assert.equal(res.context.conversationTopic, "TRAUMA_HEALING_VALIDATION");
+    assert.ok(res.response.includes("Tele-MANAS"), "Must offer Tele-MANAS 14416");
+    assert.ok(res.response.toLowerCase().includes("does not mean you are damaged"), "Must de-stigmatize trauma feelings");
+    assert.ok(res.response.toLowerCase().includes("pace"), "Must respect survivor pace");
+  });
+
   console.log("\n============================================================");
   console.log(`TOTAL: ${passed + failed} Tests | PASSED: ${passed} | FAILED: ${failed}`);
   console.log("============================================================\n");

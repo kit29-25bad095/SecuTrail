@@ -67,7 +67,7 @@ export default function ChoosePathwayPage() {
       {/* TWO PRIMARY PATHWAYS: SPEAK WITH AI vs TRIAGE INFO */}
       {/* ------------------------------------------------------------ */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        {/* CARD 1: SPEAK WITH AI */}
+        {/* CARD 1: SPEAK WITH AI (SENTIMENTALLY BALANCED) */}
         <Card className="rounded-3xl border-2 border-blue-200 hover:border-blue-400 dark:border-blue-900/60 dark:hover:border-blue-700 bg-gradient-to-b from-blue-50/40 via-card to-card dark:from-blue-950/20 dark:via-card dark:to-card p-6 flex flex-col justify-between shadow-sm transition-all">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -75,7 +75,7 @@ export default function ChoosePathwayPage() {
                 <Bot className="h-6 w-6" />
               </div>
               <Badge variant="outline" className="bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-800 text-xs font-semibold">
-                Interactive Chatbot
+                Sentimentally Balanced AI
               </Badge>
             </div>
 
@@ -84,14 +84,14 @@ export default function ChoosePathwayPage() {
                 Speak with AI Assistant
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
-                Ask anything in a private, interactive chat. The assistant answers strictly from verified memory—with tailored, responsive replies for your specific questions and zero repeated generic answers.
+                Engage in a private, supportive conversation with our sentimentally balanced AI. It listens with calm, grounded empathy—neither coldly mechanical nor overwhelmingly dramatic—giving tailored, responsive answers grounded strictly in verified memory.
               </p>
             </div>
 
             <div className="space-y-2 pt-2 border-t border-slate-200/80 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300">
               <div className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                <span>Ask anything in your own words with conversational continuity</span>
+                <span>Emotionally calibrated tone that meets you where you are without assumptions</span>
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />

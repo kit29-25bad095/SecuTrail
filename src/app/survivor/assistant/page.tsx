@@ -83,9 +83,9 @@ const INITIAL_WELCOME_MESSAGE: ChatMessage = {
   id: "msg_welcome_initial",
   role: "assistant",
   content:
-    "Hello. I'm here to support you privately and calmly. You are in a confidential, anonymous space with zero tracking and no sign-up required.\n\n" +
-    "You can talk about how you're feeling, ask about time-critical medical care (such as HIV PEP within 72 hours), understand your legal rights under Indian law (BNS 2023), or learn about consent and boundaries.\n\n" +
-    "You are in complete control of this conversation. How can I help you right now?",
+    "Hello. I'm here as your confidential, sentimentally balanced support assistant.\n\n" +
+    "You can ask me questions about medical care (such as PEP within 72 hours), legal rights under Indian law (BNS 2023), or consent—or talk openly about how you're feeling.\n\n" +
+    "I respond with calm, grounded empathy and clear facts, without judgment or pressure. You remain in complete control. How can I support you right now?",
   timestamp: Date.now(),
   relevantDomains: ["EMOTIONAL", "LEGAL", "MEDICAL"],
   citations: [],
@@ -280,14 +280,14 @@ export default function DecisionAssistantPage() {
       {/* HEADER */}
       {/* ------------------------------------------------------------ */}
       <div className="text-center max-w-2xl mx-auto space-y-2">
-        <Badge variant="outline" className="text-[11px] uppercase font-bold tracking-wider">
-          Step 05 • Verified AI Decision Assistant
+        <Badge variant="outline" className="text-[11px] uppercase font-bold tracking-wider bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-800">
+          Sentimentally Balanced AI • Confidential Support
         </Badge>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100">
-          You&apos;re Not Alone. Let&apos;s Figure Out What You Need.
+          Speak with AI Assistant
         </h1>
         <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-          A private space to talk about what you&apos;re feeling, understand your options, and learn about emotional and legal support.
+          A calm, emotionally balanced, and trauma-informed space. It responds with steady empathy—grounded in facts, attuned to your feelings, and never overwhelming.
         </p>
       </div>
 
@@ -327,8 +327,12 @@ export default function DecisionAssistantPage() {
               <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-background animate-pulse" />
             </div>
             <div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-xs font-bold text-foreground">SecuTrail Assistant</span>
+                <span className="inline-flex items-center gap-0.5 rounded-full bg-blue-100 dark:bg-blue-950 px-1.5 py-0.2 text-[10px] font-semibold text-blue-800 dark:text-blue-300">
+                  <Sparkles className="h-3 w-3" />
+                  <span>Sentimentally Balanced</span>
+                </span>
                 <span className="inline-flex items-center gap-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 px-1.5 py-0.2 text-[10px] font-semibold text-emerald-800 dark:text-emerald-300">
                   <ShieldCheck className="h-3 w-3" />
                   <span>Verified RAG</span>

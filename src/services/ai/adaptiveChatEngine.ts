@@ -330,9 +330,9 @@ export class AdaptiveChatEngine {
       return "LEGAL_AWARENESS";
     }
 
-    // 9. Emotional Expressions & Trauma Stabilization
+    // 9. Emotional Expressions & Trauma Stabilization (including trust, privacy, and healing)
     if (
-      /\b(scared|terrified|afraid|numb|crying|sad|anxiety|anxious|panic|overwhelmed|shame|guilt|alone|lonely|confused|uncertain|my fault|blame myself|ashamed|can'?t sleep|cannot sleep|insomnia|nightmare|racing heart|flashback|freeze)\b/i.test(
+      /\b(scared|terrified|afraid|numb|crying|sad|anxiety|anxious|panic|overwhelmed|shame|guilt|alone|lonely|confused|uncertain|my fault|blame myself|ashamed|can'?t sleep|cannot sleep|insomnia|nightmare|racing heart|flashback|freeze|broken|damaged|dirty|hopeless|will i (ever )?heal|can i trust|is this private|is this safe)\b/i.test(
         text
       )
     ) {
@@ -471,6 +471,16 @@ export class AdaptiveChatEngine {
           sanitizedInput
         );
 
+      const isTrustOrPrivacy =
+        /\b(can i trust|is this safe|is this private|who can see|are you logging|are you recording|will anyone know)\b/i.test(
+          sanitizedInput
+        );
+
+      const isBrokenOrHopeless =
+        /\b(feel broken|am i broken|ruined|damaged|dirty|never (be the same|heal|recover)|hopeless)\b/i.test(
+          sanitizedInput
+        );
+
       let responseText = "";
       let topic = "EMOTIONAL_COPING";
       const citations: SourceCitation[] = [VERIFIED_SOURCES.who_clinical_rape];
@@ -555,6 +565,24 @@ export class AdaptiveChatEngine {
           "4. **Identify 2 things you can smell** around you.\n" +
           "5. **Take 1 slow, deep, intentional breath in and out.**\n\n" +
           "You are safe here right now. Take your time, and tell me whenever you feel ready to continue.";
+      } else if (isTrustOrPrivacy) {
+        topic = "PRIVACY_AND_TRUST_ASSURANCE";
+        citations.push(VERIFIED_SOURCES.bns_2023_statute);
+        responseText =
+          "You can trust that this space is completely private, anonymous, and secure:\n\n" +
+          "• **Zero Data Retention:** SecuTrail collects no personal details, phone numbers, emails, or IP addresses. Nothing is tracked or logged.\n" +
+          "• **In-Memory Only:** Your messages exist only in your browser's temporary session and are purged automatically.\n" +
+          "• **Instant Quick Exit:** You can clear everything instantly at any moment by pressing ESC twice or clicking 'Quick Exit'.\n\n" +
+          "You are in full control of how much or how little you share.";
+      } else if (isBrokenOrHopeless) {
+        topic = "TRAUMA_HEALING_VALIDATION";
+        citations.push(VERIFIED_SOURCES.who_clinical_rape);
+        responseText =
+          "It is very common to feel broken or permanently changed after trauma, but feeling this way does not mean you are damaged.\n\n" +
+          "• **A Natural Nervous System Response:** Severe trauma temporarily overwhelms the brain's ability to integrate experience. What you are feeling is your mind and body doing their best to survive an abnormal violation.\n" +
+          "• **Healing & Recalibration:** Healing is not a straight line, but with emotional safety, patience, and gentle support, the nervous system can and does recover.\n" +
+          "• **24/7 Professional Counseling:** When you feel ready, you can speak with a compassionate, trained counselor at **Tele-MANAS (14416)**—it is confidential, government-backed, and free across India.\n\n" +
+          "You are not alone, and you can take this at whatever pace feels right to you.";
       } else {
         const { bestSnippet, highestScore } = AdaptiveChatEngine.findBestKnowledgeSnippet(sanitizedInput);
         if (bestSnippet && highestScore >= 3) {
@@ -575,13 +603,13 @@ export class AdaptiveChatEngine {
             topic = "EMOTIONAL_FIRST_AID";
             const hasPreviousConversation = previousContext.turnCount > 0;
             const continuityLead = hasPreviousConversation
-              ? "It sounds like you're carrying a lot right now, and it is completely normal to feel this way after what you've been through. "
-              : "It sounds like you're dealing with a lot right now. You don't have to figure everything out at once. ";
+              ? "I hear you, and it is completely normal to feel this way after what you've been through. "
+              : "I hear you, and you don't have to figure everything out at once. ";
 
             responseText =
               `${continuityLead}We can take this one step at a time. ` +
               "Your feelings are valid, and there is no right or wrong way to feel.\n\n" +
-              "If you'd like, you can tell me more about what you're experiencing, or we can look at supportive options together at your own pace. You remain completely in control.";
+              "You are safe in this conversation right now. If you'd like, we can try a gentle grounding exercise to help your body feel steadier, look at supportive options together at your own pace, or simply give you space to express what's on your mind. You remain completely in control.";
           } else {
             topic = "CONVERSATIONAL_ASSISTANCE";
             responseText =
