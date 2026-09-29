@@ -245,6 +245,22 @@ export class AdaptiveChatEngine {
       return "MINOR_INVOLVEMENT";
     }
 
+    // 0. Greeting Check
+    if (/^(hi|hello|hey|namaste|good (morning|afternoon|evening)|start|greetings|help|hi there|hello there)[\s!.]*$/i.test(text.trim())) {
+      return "GENERAL_AWARENESS";
+    }
+
+    // 0b. Rape / Sexual Assault inquiries, opinions, and definitions
+    const isRapeInquiry =
+      /^(rape|sexual assault|sexual violence|molestation)[\s!.]*$/i.test(text.trim()) ||
+      (/\b(rape|sexual assault|sexual violence|molest)\b/i.test(text) &&
+        /\b(what|think|thought|opinion|view|definition|define|meaning|tell me|explain|why|is it|about|statute|law|article|section|understand)\b/i.test(
+          text
+        ));
+    if (isRapeInquiry) {
+      return "GENERAL_AWARENESS";
+    }
+
     // 1. Follow-up: Hesitation to disclose / tell anyone
     if (
       /\b(don'?t want to tell anyone|can'?t tell anyone|scared to tell|keep it private|not ready to talk|don'?t tell my parents)\b/i.test(
@@ -354,6 +370,42 @@ export class AdaptiveChatEngine {
   }
 
   /**
+   * Helper to find the best matching verified knowledge chunk from the vetted database
+   */
+  public static findBestKnowledgeSnippet(input: string): {
+    bestSnippet: (typeof VERIFIED_KNOWLEDGE_CHUNKS)[0] | null;
+    highestScore: number;
+  } {
+    const queryTokens = input
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      .filter((t) => t.length > 2);
+
+    let bestSnippet: (typeof VERIFIED_KNOWLEDGE_CHUNKS)[0] | null = null;
+    let highestScore = 0;
+
+    for (const chunk of VERIFIED_KNOWLEDGE_CHUNKS) {
+      let score = 0;
+      const titleLower = chunk.title.toLowerCase();
+      const topicLower = chunk.topic.toLowerCase().replace(/_/g, " ");
+      const contentLower = chunk.content.toLowerCase();
+
+      for (const token of queryTokens) {
+        if (titleLower.includes(token)) score += 3;
+        if (topicLower.includes(token)) score += 2;
+        if (contentLower.includes(token)) score += 1;
+      }
+
+      if (score > highestScore) {
+        highestScore = score;
+        bestSnippet = chunk;
+      }
+    }
+
+    return { bestSnippet, highestScore };
+  }
+
+  /**
    * Synthesizes the adaptive, context-aware response
    */
   private static async synthesizeAdaptiveResponse(params: {
@@ -423,7 +475,40 @@ export class AdaptiveChatEngine {
       let topic = "EMOTIONAL_COPING";
       const citations: SourceCitation[] = [VERIFIED_SOURCES.who_clinical_rape];
 
-      if (isDisclosureHesitation) {
+      const isGreeting =
+        /^(hi|hello|hey|namaste|good (morning|afternoon|evening)|start|greetings|help|hi there|hello there)[\s!.]*$/i.test(
+          sanitizedInput.trim()
+        );
+
+      const isRapeQuery =
+        /^(rape|sexual assault|sexual violence|molestation)[\s!.]*$/i.test(sanitizedInput.trim()) ||
+        (/\b(rape|sexual assault|sexual violence|molest)\b/i.test(sanitizedInput) &&
+          /\b(what|think|thought|opinion|view|definition|define|meaning|tell me|explain|why|is it|about|statute|law|article|section|understand)\b/i.test(
+            sanitizedInput
+          ));
+
+      if (isGreeting) {
+        topic = "GREETING_AND_ASSISTANT_CAPABILITIES";
+        citations.push(VERIFIED_SOURCES.bns_2023_statute, VERIFIED_SOURCES.mohfw_pep_protocol, VERIFIED_SOURCES.who_clinical_rape);
+        responseText =
+          "Hello, I am SecuTrail's confidential support assistant. You are in a safe, anonymous space where no personal information is tracked or stored.\n\n" +
+          "I am here to answer your questions and guide you through verified options at your own pace:\n" +
+          "• **Emergency Healthcare:** Timelines for HIV PEP (strictly within 72 hours), emergency contraception, and forensic evidence preservation guidelines.\n" +
+          "• **Legal Protections:** Your statutory rights under Bharatiya Nyaya Sanhita (BNS 2023), Zero-FIR filing, police refusal penalties (Section 199 BNS), POSH workplace harassment, and free legal aid (NALSA 15100).\n" +
+          "• **Emotional Coping & Grounding:** Trauma grounding exercises (5-4-3-2-1), panic stabilization, self-blame deconstruction, and 24/7 counseling hotlines like Tele-MANAS (14416).\n" +
+          "• **Safety & Digital Rights:** Cyber harassment reporting (1930) and active consent standards.\n\n" +
+          "You remain in complete control. What would you like to know or discuss?";
+      } else if (isRapeQuery) {
+        topic = "RAPE_LEGAL_AND_ETHICAL_FRAMEWORK";
+        citations.push(VERIFIED_SOURCES.bns_2023_statute, VERIFIED_SOURCES.who_clinical_rape);
+        responseText =
+          "In statutory law and clinical trauma science, **rape and sexual assault are profound criminal violations of human dignity, bodily autonomy, and fundamental rights**:\n\n" +
+          "• **Statutory Definition (Section 63 BNS 2023):** Under Indian criminal law (Bharatiya Nyaya Sanhita 2023), rape is non-consensual sexual penetration or acts committed without voluntary, active consent, or where consent is vitiated through coercion, fear, intoxication, or deception.\n" +
+          "• **100% Perpetrator Responsibility:** Under WHO clinical guidelines and trauma psychology, **responsibility lies 100% with the person who committed the assault**. A survivor is NEVER to blame, regardless of what they wore, consumed, where they were, or their relationship to the perpetrator.\n" +
+          "• **The Biology of Trauma (Freeze Response):** Involuntary nervous system reactions like freezing, going numb, or being unable to scream (tonic immobility) are physiological survival mechanisms—they are never consent or agreement.\n" +
+          "• **Absolute Rights of Survivors:** Every survivor has enforceable statutory rights to free immediate emergency healthcare (Section 397 BNSS), independent forensic preservation without forced police reporting, full identity protection (Section 72 BNS), and free legal representation (NALSA 15100).\n\n" +
+          "If you or someone you know has been affected, SecuTrail is here to support you with confidential medical timelines, legal protections, or emotional grounding at your own pace.";
+      } else if (isDisclosureHesitation) {
         topic = "HESITATION_TO_DISCLOSE";
         responseText =
           "That's completely okay. You don't have to decide that right now, and you don't have to tell anyone until or unless you feel ready. " +
@@ -471,17 +556,43 @@ export class AdaptiveChatEngine {
           "5. **Take 1 slow, deep, intentional breath in and out.**\n\n" +
           "You are safe here right now. Take your time, and tell me whenever you feel ready to continue.";
       } else {
-        topic = "EMOTIONAL_FIRST_AID";
-        // Connect with previous messages if continuity exists
-        const hasPreviousConversation = previousContext.turnCount > 0;
-        const continuityLead = hasPreviousConversation
-          ? "It sounds like you're carrying a lot right now, and it is completely normal to feel this way after what you've been through. "
-          : "It sounds like you're dealing with a lot right now. You don't have to figure everything out at once. ";
+        const { bestSnippet, highestScore } = AdaptiveChatEngine.findBestKnowledgeSnippet(sanitizedInput);
+        if (bestSnippet && highestScore >= 3) {
+          topic = bestSnippet.topic;
+          citations.push(bestSnippet.source);
+          responseText =
+            `Here is the verified information regarding **${bestSnippet.title}**:\n\n` +
+            `${bestSnippet.content}\n\n` +
+            `This guidance is grounded in official records from the ${bestSnippet.source.organization}. ` +
+            `You have complete control over how to proceed, and support is available whenever you need it.`;
+        } else {
+          const isExpressingEmotion =
+            /\b(scared|terrified|afraid|numb|crying|cry|sad|hurt|pain|anxiety|anxious|panic|overwhelmed|shame|guilt|alone|lonely|confused|uncertain|depressed|hopeless|stress|nightmare|shaking)\b/i.test(
+              sanitizedInput
+            );
 
-        responseText =
-          `${continuityLead}We can take this one step at a time. ` +
-          "Your feelings are valid, and there is no right or wrong way to feel.\n\n" +
-          "If you'd like, you can tell me more about what you're experiencing, or we can look at supportive options together at your own pace. You remain completely in control.";
+          if (isExpressingEmotion) {
+            topic = "EMOTIONAL_FIRST_AID";
+            const hasPreviousConversation = previousContext.turnCount > 0;
+            const continuityLead = hasPreviousConversation
+              ? "It sounds like you're carrying a lot right now, and it is completely normal to feel this way after what you've been through. "
+              : "It sounds like you're dealing with a lot right now. You don't have to figure everything out at once. ";
+
+            responseText =
+              `${continuityLead}We can take this one step at a time. ` +
+              "Your feelings are valid, and there is no right or wrong way to feel.\n\n" +
+              "If you'd like, you can tell me more about what you're experiencing, or we can look at supportive options together at your own pace. You remain completely in control.";
+          } else {
+            topic = "CONVERSATIONAL_ASSISTANCE";
+            responseText =
+              "I am here to assist you with confidential, trauma-informed guidance. " +
+              "You can ask me questions about:\n" +
+              "• **Emergency Healthcare:** Timelines for HIV PEP (within 72 hours), emergency contraception, or evidence preservation.\n" +
+              "• **Legal Protections:** Zero-FIR rights under BNS 2023, police refusal penalties, and free legal aid (NALSA 15100).\n" +
+              "• **Emotional & Counseling Support:** Grounding exercises (5-4-3-2-1), panic stabilization, and 24/7 hotlines like Tele-MANAS (14416).\n\n" +
+              "What would you like to know or discuss?";
+          }
+        }
       }
 
       const relevantDomains: SupportDomain[] = ["EMOTIONAL"];
@@ -693,6 +804,19 @@ export class AdaptiveChatEngine {
       let topic = "AWARENESS_EDUCATION";
       let responseText = "";
       const citations: SourceCitation[] = [];
+      let referencedEntity = "awareness and education";
+
+      const isGreeting =
+        /^(hi|hello|hey|namaste|good (morning|afternoon|evening)|start|greetings|help|hi there|hello there)[\s!.]*$/i.test(
+          sanitizedInput.trim()
+        );
+
+      const isRapeQuery =
+        /^(rape|sexual assault|sexual violence|molestation)[\s!.]*$/i.test(sanitizedInput.trim()) ||
+        (/\b(rape|sexual assault|sexual violence|molest)\b/i.test(sanitizedInput) &&
+          /\b(what|think|thought|opinion|view|definition|define|meaning|tell me|explain|why|is it|about|statute|law|article|section|understand)\b/i.test(
+            sanitizedInput
+          ));
 
       const isConsentQuery = /consent/i.test(sanitizedInput);
       const isCyberOrImageAbuse =
@@ -702,7 +826,32 @@ export class AdaptiveChatEngine {
       const isBoundaries = /boundar(y|ies)/i.test(sanitizedInput);
       const isBystander = /bystander|5d/i.test(sanitizedInput);
 
-      if (isConsentQuery) {
+      if (isGreeting) {
+        topic = "GREETING_AND_ASSISTANT_CAPABILITIES";
+        citations.push(VERIFIED_SOURCES.bns_2023_statute, VERIFIED_SOURCES.mohfw_pep_protocol, VERIFIED_SOURCES.who_clinical_rape);
+        referencedEntity = "SecuTrail anonymous support capabilities";
+
+        responseText =
+          "Hello, I am SecuTrail's confidential support assistant. You are in a safe, anonymous space where no personal information is tracked or stored.\n\n" +
+          "I am here to answer your questions and guide you through verified options at your own pace:\n" +
+          "• **Emergency Healthcare:** Timelines for HIV PEP (strictly within 72 hours), emergency contraception, and forensic evidence preservation guidelines.\n" +
+          "• **Legal Protections:** Your statutory rights under Bharatiya Nyaya Sanhita (BNS 2023), Zero-FIR filing, police refusal penalties (Section 199 BNS), POSH workplace harassment, and free legal aid (NALSA 15100).\n" +
+          "• **Emotional Coping & Grounding:** Trauma grounding exercises (5-4-3-2-1), panic stabilization, self-blame deconstruction, and 24/7 counseling hotlines like Tele-MANAS (14416).\n" +
+          "• **Safety & Digital Rights:** Cyber harassment reporting (1930) and active consent standards.\n\n" +
+          "You remain in complete control. What would you like to know or discuss?";
+      } else if (isRapeQuery) {
+        topic = "RAPE_LEGAL_AND_ETHICAL_FRAMEWORK";
+        citations.push(VERIFIED_SOURCES.bns_2023_statute, VERIFIED_SOURCES.who_clinical_rape);
+        referencedEntity = "Section 63 BNS 2023 & trauma autonomy";
+
+        responseText =
+          "In statutory law and clinical trauma science, **rape and sexual assault are profound criminal violations of human dignity, bodily autonomy, and fundamental rights**:\n\n" +
+          "• **Statutory Definition (Section 63 BNS 2023):** Under Indian criminal law (Bharatiya Nyaya Sanhita 2023), rape is non-consensual sexual penetration or acts committed without voluntary, active consent, or where consent is vitiated through coercion, fear, intoxication, or deception.\n" +
+          "• **100% Perpetrator Responsibility:** Under WHO clinical guidelines and trauma psychology, **responsibility lies 100% with the person who committed the assault**. A survivor is NEVER to blame, regardless of what they wore, consumed, where they were, or their relationship to the perpetrator.\n" +
+          "• **The Biology of Trauma (Freeze Response):** Involuntary nervous system reactions like freezing, going numb, or being unable to scream (tonic immobility) are physiological survival mechanisms—they are never consent or agreement.\n" +
+          "• **Absolute Rights of Survivors:** Every survivor has enforceable statutory rights to free immediate emergency healthcare (Section 397 BNSS), independent forensic preservation without forced police reporting, full identity protection (Section 72 BNS), and free legal representation (NALSA 15100).\n\n" +
+          "If you or someone you know has been affected, SecuTrail is here to support you with confidential medical timelines, legal protections, or emotional grounding at your own pace.";
+      } else if (isConsentQuery) {
         topic = "CONSENT_EDUCATION";
         citations.push(VERIFIED_SOURCES.bns_2023_statute, VERIFIED_SOURCES.pocso_act_statute);
         responseText =
@@ -739,14 +888,26 @@ export class AdaptiveChatEngine {
           "4. **Delay:** After the situation, check in privately with the person targeted. Ask: 'Are you okay?' and let them know you saw what happened.\n" +
           "5. **Document:** If someone is already helping and you are at a safe distance, record date, time, and details. Never post footage online without the survivor's explicit consent.";
       } else {
-        topic = "GENERAL_COMMUNITY_AWARENESS";
-        citations.push(VERIFIED_SOURCES.bns_2023_statute, VERIFIED_SOURCES.mohfw_pep_protocol);
-        responseText =
-          "SecuTrail provides verified educational tools to support healthy communities, dispel harmful myths, and guide survivors to safe resources:\n\n" +
-          "• **Consent & Boundaries:** Clear understanding of active consent and digital protections.\n" +
-          "• **Survivor Agency:** Complete control over medical care, emotional counseling, and reporting choices.\n" +
-          "• **Bystander Action:** Practical techniques to safely step in and support others.\n\n" +
-          "Would you like to explore consent standards, digital boundary safety, or bystander support options?";
+        const { bestSnippet, highestScore } = AdaptiveChatEngine.findBestKnowledgeSnippet(sanitizedInput);
+        if (bestSnippet && highestScore >= 3) {
+          topic = bestSnippet.topic;
+          citations.push(bestSnippet.source);
+          referencedEntity = bestSnippet.title;
+          responseText =
+            `Here is the verified information regarding **${bestSnippet.title}**:\n\n` +
+            `${bestSnippet.content}\n\n` +
+            `This guidance is grounded in official statutory records from the ${bestSnippet.source.organization}. ` +
+            `You have complete control over how to proceed, and support is available whenever you need it.`;
+        } else {
+          topic = "GENERAL_COMMUNITY_AWARENESS";
+          citations.push(VERIFIED_SOURCES.bns_2023_statute, VERIFIED_SOURCES.mohfw_pep_protocol);
+          responseText =
+            "SecuTrail provides verified educational tools to support healthy communities, dispel harmful myths, and guide survivors to safe resources:\n\n" +
+            "• **Consent & Boundaries:** Clear understanding of active consent and digital protections.\n" +
+            "• **Survivor Agency:** Complete control over medical care, emotional counseling, and reporting choices.\n" +
+            "• **Bystander Action:** Practical techniques to safely step in and support others.\n\n" +
+            "Would you like to explore consent standards, digital boundary safety, or bystander support options?";
+        }
       }
 
       const relevantDomains: SupportDomain[] = ["EMOTIONAL", "LEGAL"];
@@ -766,7 +927,7 @@ export class AdaptiveChatEngine {
         citations,
         agencyOptions: [],
         verifiedResources,
-        referencedEntity: "awareness and education",
+        referencedEntity,
       };
     }
 
@@ -884,32 +1045,7 @@ export class AdaptiveChatEngine {
     // ------------------------------------------------------------
     // 6. DYNAMIC MATCHING AGAINST VERIFIED KNOWLEDGE BASE
     // ------------------------------------------------------------
-    // Check if the user's inquiry matches any verified knowledge snippet
-    const queryTokens = sanitizedInput
-      .toLowerCase()
-      .split(/[^a-z0-9]+/)
-      .filter((t) => t.length > 2);
-
-    let bestSnippet: (typeof VERIFIED_KNOWLEDGE_CHUNKS)[0] | null = null;
-    let highestScore = 0;
-
-    for (const chunk of VERIFIED_KNOWLEDGE_CHUNKS) {
-      let score = 0;
-      const titleLower = chunk.title.toLowerCase();
-      const topicLower = chunk.topic.toLowerCase().replace(/_/g, " ");
-      const contentLower = chunk.content.toLowerCase();
-
-      for (const token of queryTokens) {
-        if (titleLower.includes(token)) score += 3;
-        if (topicLower.includes(token)) score += 2;
-        if (contentLower.includes(token)) score += 1;
-      }
-
-      if (score > highestScore) {
-        highestScore = score;
-        bestSnippet = chunk;
-      }
-    }
+    const { bestSnippet, highestScore } = AdaptiveChatEngine.findBestKnowledgeSnippet(sanitizedInput);
 
     if (bestSnippet && highestScore >= 3) {
       const mappedDomain: SupportDomain =

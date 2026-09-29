@@ -104,12 +104,53 @@ async function runResponsiveTests() {
     assert.ok(res.citations.some(c => c.title.includes("NALSA")), "Must cite NALSA guidelines");
   });
 
-  // Test G: Answers are distinct (not identical across different questions)
+  // Test G: Greeting test
+  await it("Provides welcoming guidance and capabilities for greetings like 'hi'", async () => {
+    const res = await AdaptiveChatEngine.processTurn({
+      message: "hi",
+      sessionId: session.id,
+    });
+
+    assert.equal(res.context.conversationTopic, "GREETING_AND_ASSISTANT_CAPABILITIES");
+    assert.ok(
+      !res.response.includes("It sounds like you're carrying a lot right now") &&
+      !res.response.includes("It sounds like you're dealing with a lot right now"),
+      "Must not reply with generic emotional distress template to a greeting"
+    );
+    assert.ok(res.response.includes("SecuTrail's confidential support assistant"), "Must introduce assistant");
+    assert.ok(res.response.includes("PEP"), "Must list capabilities such as PEP");
+    assert.ok(res.response.includes("BNS 2023"), "Must list BNS 2023");
+  });
+
+  // Test H: Rape inquiry / opinion test ("what u think abt rape")
+  await it("Directly answers 'what u think abt rape' with Section 63 BNS, 100% perpetrator responsibility and trauma science", async () => {
+    const res = await AdaptiveChatEngine.processTurn({
+      message: "what u think abt rape",
+      sessionId: session.id,
+    });
+
+    assert.equal(res.context.conversationTopic, "RAPE_LEGAL_AND_ETHICAL_FRAMEWORK");
+    assert.ok(
+      !res.response.includes("It sounds like you're carrying a lot right now") &&
+      !res.response.includes("It sounds like you're dealing with a lot right now"),
+      "Must not reply with generic emotional distress template to conceptual rape inquiry"
+    );
+    assert.ok(res.response.includes("Section 63 BNS 2023"), "Must explain statutory definition under BNS");
+    assert.ok(res.response.includes("100% Perpetrator Responsibility"), "Must attribute 100% responsibility to perpetrator");
+    assert.ok(res.response.toLowerCase().includes("never to blame"), "Must explicitly state survivor is never to blame");
+    assert.ok(res.response.includes("Freeze Response") || res.response.includes("tonic immobility"), "Must explain freeze response biology");
+    assert.ok(res.citations.some(c => c.title.includes("Bharatiya Nyaya Sanhita")), "Must cite BNS");
+  });
+
+  // Test I: Answers are distinct (not identical across different questions)
   await it("Ensures replies are distinct and responsive, not giving the same reply for different questions", async () => {
+    const resGreeting = await AdaptiveChatEngine.processTurn({ message: "hi", sessionId: session.id });
+    const resRape = await AdaptiveChatEngine.processTurn({ message: "what u think abt rape", sessionId: session.id });
     const res1 = await AdaptiveChatEngine.processTurn({ message: "What is PEP?", sessionId: session.id });
     const res2 = await AdaptiveChatEngine.processTurn({ message: "What is Zero FIR?", sessionId: session.id });
     const res3 = await AdaptiveChatEngine.processTurn({ message: "What is consent?", sessionId: session.id });
 
+    assert.notEqual(resGreeting.response, resRape.response, "Greeting and Rape responses must be completely distinct");
     assert.notEqual(res1.response, res2.response, "PEP and Zero-FIR responses must be completely distinct");
     assert.notEqual(res2.response, res3.response, "Zero-FIR and Consent responses must be completely distinct");
     assert.notEqual(res1.response, res3.response, "PEP and Consent responses must be completely distinct");
