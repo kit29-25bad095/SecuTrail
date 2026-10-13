@@ -55,21 +55,21 @@ export default function SurvivorLayout({
   ];
 
   return (
-    <div className="flex flex-col flex-1 bg-slate-50/50 dark:bg-slate-950/40 min-h-screen">
+    <div className="flex flex-col flex-1 bg-background min-h-screen">
 
       {/* Survivor Track Sub-header & Navigation bar */}
-      <div className="border-b bg-background/90 px-4 py-3 sm:px-6">
+      <div className="border-b border-primary/20 bg-background/95 px-4 py-3 sm:px-6">
         <div className="mx-auto max-w-7xl flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Link
               href="/survivor"
-              className="text-sm font-bold text-slate-900 dark:text-slate-100 hover:text-primary transition-colors flex items-center gap-1.5"
+              className="text-sm font-bold text-foreground hover:text-primary transition-colors flex items-center gap-1.5"
             >
               <span>Survivor Support Track</span>
             </Link>
-            <span className="text-slate-300 dark:text-slate-700">|</span>
-            <span className="text-xs text-muted-foreground flex items-center gap-1">
-              <Info className="h-3 w-3 text-emerald-600" />
+            <span className="text-foreground/30">|</span>
+            <span className="text-xs text-primary flex items-center gap-1 font-medium">
+              <Info className="h-3 w-3 text-primary" />
               Confidential Ephemeral Session
             </span>
           </div>
@@ -87,8 +87,8 @@ export default function SurvivorLayout({
                   className={cn(
                     "flex items-center gap-1.5 px-3 py-1.5 rounded-md whitespace-nowrap font-medium transition-colors",
                     isActive
-                      ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 shadow-sm"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                      ? "bg-primary text-primary-foreground shadow-xs font-semibold"
+                      : "text-foreground/75 hover:bg-secondary hover:text-foreground"
                   )}
                 >
                   <Icon className="h-3.5 w-3.5" />

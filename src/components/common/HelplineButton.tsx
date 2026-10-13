@@ -27,38 +27,38 @@ interface HelplineButtonProps {
 const variantStyles = {
   emergency: {
     wrapper:
-      "border-red-200 bg-red-50 hover:bg-red-100 dark:border-red-800 dark:bg-red-950/40 dark:hover:bg-red-900/40",
-    iconWrapper: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300",
-    numberColor: "text-red-800 dark:text-red-200",
-    labelColor: "text-red-900 dark:text-red-100",
-    descColor: "text-red-700 dark:text-red-300",
+      "border-[#004225]/40 bg-[#FFFDD0] hover:bg-[#FAF7BA] text-[#004225]",
+    iconWrapper: "bg-[#004225] text-[#FFFDD0]",
+    numberColor: "text-[#004225]",
+    labelColor: "text-[#004225]",
+    descColor: "text-[#004225]/80",
   },
   support: {
     wrapper:
-      "border-amber-200 bg-amber-50 hover:bg-amber-100 dark:border-amber-800 dark:bg-amber-950/40 dark:hover:bg-amber-900/40",
+      "border-[#004225]/25 bg-[#FFFDD0] hover:bg-[#FAF7BA] text-[#004225]",
     iconWrapper:
-      "bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300",
-    numberColor: "text-amber-800 dark:text-amber-200",
-    labelColor: "text-amber-900 dark:text-amber-100",
-    descColor: "text-amber-700 dark:text-amber-300",
+      "bg-[#004225]/15 text-[#004225]",
+    numberColor: "text-[#004225]",
+    labelColor: "text-[#004225]",
+    descColor: "text-[#004225]/80",
   },
   legal: {
     wrapper:
-      "border-purple-200 bg-purple-50 hover:bg-purple-100 dark:border-purple-800 dark:bg-purple-950/40 dark:hover:bg-purple-900/40",
+      "border-[#004225]/25 bg-[#FFFDD0] hover:bg-[#FAF7BA] text-[#004225]",
     iconWrapper:
-      "bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300",
-    numberColor: "text-purple-800 dark:text-purple-200",
-    labelColor: "text-purple-900 dark:text-purple-100",
-    descColor: "text-purple-700 dark:text-purple-300",
+      "bg-[#004225]/15 text-[#004225]",
+    numberColor: "text-[#004225]",
+    labelColor: "text-[#004225]",
+    descColor: "text-[#004225]/80",
   },
   "mental-health": {
     wrapper:
-      "border-teal-200 bg-teal-50 hover:bg-teal-100 dark:border-teal-800 dark:bg-teal-950/40 dark:hover:bg-teal-900/40",
+      "border-[#004225]/25 bg-[#FFFDD0] hover:bg-[#FAF7BA] text-[#004225]",
     iconWrapper:
-      "bg-teal-100 text-teal-700 dark:bg-teal-900 dark:text-teal-300",
-    numberColor: "text-teal-800 dark:text-teal-200",
-    labelColor: "text-teal-900 dark:text-teal-100",
-    descColor: "text-teal-700 dark:text-teal-300",
+      "bg-[#004225]/15 text-[#004225]",
+    numberColor: "text-[#004225]",
+    labelColor: "text-[#004225]",
+    descColor: "text-[#004225]/80",
   },
 } as const;
 

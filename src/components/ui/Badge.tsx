@@ -31,18 +31,18 @@ function Badge({
             variant === "default",
           "border-transparent bg-secondary text-secondary-foreground":
             variant === "secondary",
-          "border-transparent bg-destructive text-destructive-foreground":
+          "border-primary/40 bg-secondary text-primary":
             variant === "destructive",
           "border-border text-foreground bg-background": variant === "outline",
-          "border-emerald-300 bg-emerald-50 text-emerald-800 dark:border-emerald-800/80 dark:bg-emerald-950/60 dark:text-emerald-200":
+          "border-primary/30 bg-secondary text-primary font-bold":
             variant === "verified",
-          "border-amber-300 bg-amber-50 text-amber-900 font-bold uppercase tracking-wider dark:border-amber-800 dark:bg-amber-950/70 dark:text-amber-200":
+          "border-primary/20 bg-secondary text-primary font-bold uppercase tracking-wider":
             variant === "demo",
-          "border-orange-300 bg-orange-50 text-orange-900 dark:border-orange-800 dark:bg-orange-950 dark:text-orange-200":
+          "border-primary/30 bg-secondary text-primary font-semibold":
             variant === "warning",
-          "border-teal-200 bg-teal-50 text-teal-900 dark:border-teal-900 dark:bg-teal-950 dark:text-teal-200":
+          "border-primary/20 bg-secondary text-primary font-medium":
             variant === "calm",
-          "border-blue-200 bg-blue-50 text-blue-900 dark:border-blue-900 dark:bg-blue-950 dark:text-blue-200":
+          "border-primary/20 bg-secondary text-primary":
             variant === "info",
         },
         {

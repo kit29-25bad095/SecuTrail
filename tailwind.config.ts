@@ -48,66 +48,208 @@ const config: Config = {
 
         /* ---- Semantic / domain colors ---- */
 
-        /* Sage — calm healing green (safety, nature, trust) */
-        sage: {
-          50:  "#f3f7f4",
-          100: "#e4ede6",
-          200: "#c6daca",
-          300: "#9abfa1",
-          400: "#6b9e74",
-          500: "#4d8157",
-          600: "#3b6743",
-          700: "#305337",
-          800: "#28432d",
-          900: "#223826",
-          950: "#111d14",
+        /* ---- White override to Warm Cream ---- */
+        white: "#FFFFF2",
+
+        /* ---- Explicit Warm Cream (#FFFDD0) & Forest Green (#004225) Palettes ---- */
+        cream: {
+          DEFAULT: "#FFFDD0",
+          50:  "#FFFFF8",
+          100: "#FFFFF2",
+          200: "#FFFDD0", // Pure brand Warm Cream
+          300: "#FAF7BA",
+          400: "#F5F0A4",
+          500: "#ECE486",
+          600: "#D5CC64",
+          700: "#B0A643",
+          800: "#787126",
+          900: "#484310",
         },
 
-        /* Warm slate — primary UI surface tones */
+        forest: {
+          DEFAULT: "#004225",
+          50:  "#E6F2EB",
+          100: "#C3E3D1",
+          200: "#87C5A2",
+          300: "#4FA775",
+          400: "#228651",
+          500: "#006C3B",
+          600: "#00542E",
+          700: "#004225", // Pure brand Forest Green
+          800: "#00321C",
+          900: "#002313",
+          950: "#00160B",
+        },
+
+        /* ---- Remapped Neutral scales (slate, gray, zinc) to Cream & Forest Green ---- */
         slate: {
-          50:  "#f7f8fa",
-          100: "#eef0f4",
-          200: "#d9dde6",
-          300: "#bcc3d0",
-          400: "#96a0b4",
-          500: "#758096",
-          600: "#5e677c",
-          700: "#4c5364",
-          800: "#404655",
-          900: "#383d4a",
-          950: "#1e2130",
+          50:  "#FFFFF8",
+          100: "#FFFFF2",
+          200: "#FFFDD0",
+          300: "#FAF7BA",
+          400: "#689379",
+          500: "#3A7151",
+          600: "#185532",
+          700: "#004F2C",
+          800: "#004225",
+          900: "#00321C",
+          950: "#002213",
         },
 
-        /* Emergency / alert */
+        gray: {
+          50:  "#FFFFF8",
+          100: "#FFFFF2",
+          200: "#FFFDD0",
+          300: "#FAF7BA",
+          400: "#689379",
+          500: "#3A7151",
+          600: "#185532",
+          700: "#004F2C",
+          800: "#004225",
+          900: "#00321C",
+          950: "#002213",
+        },
+
+        zinc: {
+          50:  "#FFFFF8",
+          100: "#FFFFF2",
+          200: "#FFFDD0",
+          300: "#FAF7BA",
+          400: "#689379",
+          500: "#3A7151",
+          600: "#185532",
+          700: "#004F2C",
+          800: "#004225",
+          900: "#00321C",
+          950: "#002213",
+        },
+
+        /* ---- Remapped Greens (sage, emerald, teal) to Forest Green ---- */
+        sage: {
+          50:  "#FFFFF8",
+          100: "#FFFFF2",
+          200: "#FFFDD0",
+          300: "#87C5A2",
+          400: "#4FA775",
+          500: "#006C3B",
+          600: "#00542E",
+          700: "#004225",
+          800: "#00321C",
+          900: "#002313",
+          950: "#00160B",
+        },
+
+        emerald: {
+          50:  "#FFFFF8",
+          100: "#FFFFF2",
+          200: "#FFFDD0",
+          300: "#87C5A2",
+          400: "#4FA775",
+          500: "#006C3B",
+          600: "#00542E",
+          700: "#004225",
+          800: "#00321C",
+          900: "#002313",
+          950: "#00160B",
+        },
+
+        teal: {
+          50:  "#FFFFF8",
+          100: "#FFFFF2",
+          200: "#FFFDD0",
+          300: "#87C5A2",
+          400: "#4FA775",
+          500: "#006C3B",
+          600: "#00542E",
+          700: "#004225",
+          800: "#00321C",
+          900: "#002313",
+          950: "#00160B",
+        },
+
+        /* ---- Remapped Accent colors to Forest Green & Warm Cream harmony ---- */
+        blue: {
+          50:  "#FFFFF8",
+          100: "#FFFFF2",
+          200: "#FFFDD0",
+          300: "#FAF7BA",
+          400: "#689379",
+          500: "#3A7151",
+          600: "#185532",
+          700: "#004225",
+          800: "#00321C",
+          900: "#002313",
+        },
+
+        indigo: {
+          50:  "#FFFFF8",
+          100: "#FFFFF2",
+          200: "#FFFDD0",
+          300: "#FAF7BA",
+          400: "#689379",
+          500: "#3A7151",
+          600: "#185532",
+          700: "#004225",
+          800: "#00321C",
+          900: "#002313",
+        },
+
+        purple: {
+          50:  "#FFFFF8",
+          100: "#FFFFF2",
+          200: "#FFFDD0",
+          300: "#FAF7BA",
+          400: "#689379",
+          500: "#3A7151",
+          600: "#185532",
+          700: "#004225",
+          800: "#00321C",
+          900: "#002313",
+        },
+
+        amber: {
+          50:  "#FFFFF8",
+          100: "#FFFFF2",
+          200: "#FFFDD0",
+          300: "#FAF7BA",
+          400: "#689379",
+          500: "#3A7151",
+          600: "#185532",
+          700: "#004225",
+          800: "#00321C",
+          900: "#002313",
+        },
+
+        /* ---- Emergency / alert (Warm Cream & Forest Green) ---- */
         emergency: {
-          bg:     "#fef2f2",
-          border: "#fecaca",
-          text:   "#991b1b",
-          badge:  "#dc2626",
+          bg:     "#FFFDD0",
+          border: "#004225",
+          text:   "#004225",
+          badge:  "#004225",
         },
 
-        /* Caution / time-sensitive */
+        /* ---- Caution / time-sensitive ---- */
         caution: {
-          bg:     "#fffbeb",
-          border: "#fde68a",
-          text:   "#92400e",
-          badge:  "#d97706",
+          bg:     "#FFFFF2",
+          border: "#004225",
+          text:   "#004225",
+          badge:  "#004225",
         },
 
-        /* Verified / safe */
+        /* ---- Verified / safe ---- */
         verified: {
-          bg:     "#f0fdf4",
-          border: "#bbf7d0",
-          text:   "#166534",
-          badge:  "#16a34a",
+          bg:     "#FFFDD0",
+          border: "#004225",
+          text:   "#004225",
+          badge:  "#004225",
         },
 
-        /* Privacy / neutral info */
+        /* ---- Privacy / neutral info ---- */
         privacy: {
-          bg:     "#f0f6ff",
-          border: "#bfdbfe",
-          text:   "#1e3a5f",
-          badge:  "#2563eb",
+          bg:     "#FFFDD0",
+          border: "#004225",
+          text:   "#004225",
+          badge:  "#004225",
         },
       },
 

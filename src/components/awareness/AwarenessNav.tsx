@@ -57,19 +57,19 @@ export function AwarenessNav() {
   const pathname = usePathname();
 
   return (
-    <div className="border-b bg-background/90 px-4 py-3 sm:px-6">
+    <div className="border-b border-primary/20 bg-background/95 px-4 py-3 sm:px-6">
       <div className="mx-auto max-w-7xl flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <div className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+          <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground shadow-xs">
             <GraduationCap className="h-3.5 w-3.5" />
           </div>
           <Link
             href="/awareness"
-            className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 hover:text-primary transition-colors"
+            className="text-xs sm:text-sm font-bold text-foreground hover:text-primary transition-colors"
           >
             Awareness &amp; Prevention Track
           </Link>
-          <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">|</span>
+          <span className="text-foreground/30 hidden sm:inline">|</span>
           <span className="text-[11px] text-muted-foreground hidden sm:inline">
             Evidence-Based Legal &amp; Community Education
           </span>
@@ -91,8 +91,8 @@ export function AwarenessNav() {
                 className={cn(
                   "flex items-center gap-1.5 px-2.5 py-1.5 rounded-md whitespace-nowrap font-medium transition-colors text-xs",
                   isActive
-                    ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 shadow-xs"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    ? "bg-primary text-primary-foreground shadow-xs font-semibold"
+                    : "text-foreground/75 hover:bg-secondary hover:text-foreground"
                 )}
               >
                 <Icon className="h-3.5 w-3.5" />

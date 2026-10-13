@@ -81,15 +81,15 @@ export function Navigation() {
           href="/"
           className="flex items-center gap-2.5 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg p-1"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-white shadow-sm dark:bg-slate-100 dark:text-slate-900">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
             <Shield className="h-5 w-5" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-bold tracking-tight text-slate-900 dark:text-slate-100 text-lg">
+              <span className="font-bold tracking-tight text-foreground text-lg">
                 SecuTrail
               </span>
-              <span className="rounded bg-emerald-50 dark:bg-emerald-950/80 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+              <span className="rounded bg-secondary px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary border border-primary/20">
                 Verified
               </span>
             </div>
@@ -118,8 +118,8 @@ export function Navigation() {
                 className={cn(
                   "flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs lg:text-sm font-medium transition-colors",
                   isActive
-                    ? "bg-secondary text-primary font-semibold"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    ? "bg-primary text-primary-foreground font-semibold shadow-xs"
+                    : "text-foreground/80 hover:bg-secondary hover:text-foreground"
                 )}
               >
                 <Icon className="h-3.5 w-3.5" />
@@ -136,9 +136,9 @@ export function Navigation() {
             <Button
               size="sm"
               variant="default"
-              className="gap-1.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold shadow-xs dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
+              className="gap-1.5 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-xs"
             >
-              <HeartHandshake className="h-4 w-4 text-emerald-400 dark:text-emerald-600" />
+              <HeartHandshake className="h-4 w-4" />
               <span>Get Support</span>
             </Button>
           </Link>
@@ -150,7 +150,7 @@ export function Navigation() {
 
           <Link
             href="/admin"
-            className="text-xs text-muted-foreground hover:text-foreground hidden xl:inline-flex items-center gap-1 px-2 py-1 rounded-md border border-border/70 hover:bg-muted transition-colors"
+            className="text-xs text-muted-foreground hover:text-foreground hidden xl:inline-flex items-center gap-1 px-2 py-1 rounded-md border border-border/70 hover:bg-secondary transition-colors"
           >
             <span>Admin</span>
             <ArrowUpRight className="h-3 w-3 opacity-60" />
@@ -162,7 +162,7 @@ export function Navigation() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation-drawer"
-            className="md:hidden rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="md:hidden rounded-lg p-2 text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -178,12 +178,12 @@ export function Navigation() {
         >
           {/* Mobile Quick Exit Banner */}
           <div className="pb-3 border-b mb-2">
-            <div className="flex items-center justify-between bg-amber-50 dark:bg-amber-950/60 p-3 rounded-xl border border-amber-200 dark:border-amber-900/60">
+            <div className="flex items-center justify-between bg-secondary p-3 rounded-xl border border-primary/20">
               <div className="flex flex-col">
-                <span className="text-xs font-bold text-amber-900 dark:text-amber-200">
+                <span className="text-xs font-bold text-primary">
                   Quick Safety Exit
                 </span>
-                <span className="text-[10px] text-amber-700/80 dark:text-amber-300/80">
+                <span className="text-[10px] text-muted-foreground">
                   Redirects instantly to weather · ESC × 2
                 </span>
               </div>
@@ -201,9 +201,9 @@ export function Navigation() {
               <Button
                 variant="default"
                 size="lg"
-                className="w-full justify-center gap-2 bg-slate-900 text-white font-bold dark:bg-slate-100 dark:text-slate-900"
+                className="w-full justify-center gap-2 bg-primary text-primary-foreground font-bold hover:bg-primary/90"
               >
-                <HeartHandshake className="h-5 w-5 text-emerald-400" />
+                <HeartHandshake className="h-5 w-5" />
                 <span>Get Support (Survivor Track)</span>
               </Button>
             </Link>

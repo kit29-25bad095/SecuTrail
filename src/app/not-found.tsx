@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 export default function NotFound() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center p-6 text-center">
-      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 mb-4">
+      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-secondary text-primary border border-primary/20 mb-4">
         <ShieldAlert className="h-8 w-8" />
       </div>
       <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">

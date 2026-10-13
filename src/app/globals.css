@@ -9,45 +9,43 @@
 
 @layer base {
   :root {
-    /* ---- Core Surface Palette ---- */
-    /* Warm off-white background (avoids stark clinical white) */
-    --background:       215 25% 97%;
-    --foreground:       220 25% 12%;
+    /* ---- Core Surface Palette: Warm Cream (#FFFDD0) & Forest Green (#004225) ---- */
+    /* Warm Cream background */
+    --background:       57 100% 91%;      /* #FFFDD0 */
+    --foreground:       154 100% 13%;     /* #004225 */
 
-    /* Card surfaces — pure white for content lift */
-    --card:             0 0% 100%;
-    --card-foreground:  220 25% 12%;
+    /* Card surfaces — Warm light cream */
+    --card:             57 100% 96%;      /* #FFFFF2 */
+    --card-foreground:  154 100% 13%;     /* #004225 */
 
     /* Popover / overlays */
-    --popover:          0 0% 100%;
-    --popover-foreground: 220 25% 12%;
+    --popover:          57 100% 96%;
+    --popover-foreground: 154 100% 13%;
 
-    /* ---- Brand Primary — Deep Slate ---- */
-    /* Authoritative but not aggressive */
-    --primary:          218 35% 22%;
-    --primary-foreground: 210 40% 98%;
+    /* ---- Brand Primary — Forest Green (#004225) ---- */
+    --primary:          154 100% 13%;     /* #004225 */
+    --primary-foreground: 57 100% 91%;    /* #FFFDD0 */
 
-    /* ---- Secondary — Warm Light ---- */
-    --secondary:        213 25% 93%;
-    --secondary-foreground: 218 35% 22%;
+    /* ---- Secondary — Light Cream Tint ---- */
+    --secondary:        57 70% 86%;       /* #FAF7BE */
+    --secondary-foreground: 154 100% 13%;
 
     /* ---- Muted / Subdued ---- */
-    --muted:            213 20% 95%;
-    --muted-foreground: 215 15% 48%;
+    --muted:            57 45% 88%;
+    --muted-foreground: 154 60% 24%;
 
-    /* ---- Accent — Sage Green ---- */
-    /* Calm, natural, associated with safety and healing */
-    --accent:           148 22% 91%;
-    --accent-foreground: 148 40% 20%;
+    /* ---- Accent — Forest Green Tint ---- */
+    --accent:           154 35% 85%;
+    --accent-foreground: 154 100% 13%;
 
     /* ---- Destructive / Emergency ---- */
-    --destructive:      0 72% 51%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive:      0 72% 40%;
+    --destructive-foreground: 57 100% 91%;
 
     /* ---- Borders & Inputs ---- */
-    --border:           213 20% 88%;
-    --input:            213 20% 88%;
-    --ring:             218 35% 22%;
+    --border:           154 30% 75%;
+    --input:            154 30% 75%;
+    --ring:             154 100% 13%;
 
     /* ---- Border Radius Scale ---- */
     --radius-xs:  0.25rem;   /* 4px  */
@@ -90,14 +88,14 @@
     --leading-loose:  1.75;
 
     /* ---- Shadow Scale ---- */
-    --shadow-xs:  0 1px 2px 0 rgb(0 0 0 / 0.04);
-    --shadow-sm:  0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.06);
-    --shadow:     0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-    --shadow-md:  0 10px 15px -3px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.04);
-    --shadow-lg:  0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.04);
+    --shadow-xs:  0 1px 2px 0 rgb(0 66 37 / 0.04);
+    --shadow-sm:  0 1px 3px 0 rgb(0 66 37 / 0.07), 0 1px 2px -1px rgb(0 66 37 / 0.06);
+    --shadow:     0 4px 6px -1px rgb(0 66 37 / 0.07), 0 2px 4px -2px rgb(0 66 37 / 0.05);
+    --shadow-md:  0 10px 15px -3px rgb(0 66 37 / 0.06), 0 4px 6px -4px rgb(0 66 37 / 0.04);
+    --shadow-lg:  0 20px 25px -5px rgb(0 66 37 / 0.05), 0 8px 10px -6px rgb(0 66 37 / 0.04);
 
     /* ---- Safety-specific tokens ---- */
-    --emergency-bg:     0 100% 97%;      /* hsl(0 100% 97%)  */
+    --emergency-bg:     0 100% 97%;
     --emergency-border: 0 84% 88%;
     --emergency-text:   0 72% 40%;
 
@@ -105,13 +103,13 @@
     --caution-border:   38 92% 80%;
     --caution-text:     30 90% 35%;
 
-    --safe-bg:          148 40% 96%;
-    --safe-border:      148 30% 80%;
-    --safe-text:        148 40% 22%;
+    --safe-bg:          57 100% 96%;
+    --safe-border:      154 30% 75%;
+    --safe-text:        154 100% 13%;
 
-    --privacy-bg:       215 30% 96%;
-    --privacy-border:   215 20% 85%;
-    --privacy-text:     215 35% 28%;
+    --privacy-bg:       57 80% 93%;
+    --privacy-border:   154 25% 75%;
+    --privacy-text:     154 100% 13%;
 
     /* ---- Transition ---- */
     --transition-fast:  100ms ease;
@@ -120,36 +118,36 @@
   }
 
   /* ============================================================
-     DARK MODE OVERRIDES
+     DARK MODE OVERRIDES (Inverted Warm Cream & Forest Green)
      ============================================================ */
   .dark {
-    --background:       220 25% 8%;
-    --foreground:       215 25% 92%;
+    --background:       154 100% 13%;     /* #004225 */
+    --foreground:       57 100% 91%;      /* #FFFDD0 */
 
-    --card:             220 25% 11%;
-    --card-foreground:  215 25% 92%;
+    --card:             154 100% 11%;
+    --card-foreground:  57 100% 91%;
 
-    --popover:          220 25% 11%;
-    --popover-foreground: 215 25% 92%;
+    --popover:          154 100% 11%;
+    --popover-foreground: 57 100% 91%;
 
-    --primary:          213 30% 80%;
-    --primary-foreground: 220 25% 10%;
+    --primary:          57 100% 91%;      /* #FFFDD0 */
+    --primary-foreground: 154 100% 13%;   /* #004225 */
 
-    --secondary:        215 20% 18%;
-    --secondary-foreground: 213 30% 80%;
+    --secondary:        154 70% 18%;
+    --secondary-foreground: 57 100% 91%;
 
-    --muted:            215 20% 18%;
-    --muted-foreground: 215 15% 56%;
+    --muted:            154 60% 18%;
+    --muted-foreground: 57 60% 75%;
 
-    --accent:           148 22% 18%;
-    --accent-foreground: 148 35% 80%;
+    --accent:           154 50% 22%;
+    --accent-foreground: 57 100% 91%;
 
     --destructive:      0 60% 40%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 57 100% 91%;
 
-    --border:           215 20% 20%;
-    --input:            215 20% 20%;
-    --ring:             213 30% 75%;
+    --border:           154 40% 25%;
+    --input:            154 40% 25%;
+    --ring:             57 100% 91%;
 
     --shadow-xs:  0 1px 2px 0 rgb(0 0 0 / 0.3);
     --shadow-sm:  0 1px 3px 0 rgb(0 0 0 / 0.35), 0 1px 2px -1px rgb(0 0 0 / 0.25);
@@ -324,12 +322,12 @@
 
   /* ---- Demo data marker ---- */
   .demo-marker {
-    @apply inline-flex items-center gap-1 rounded-md bg-amber-100 text-amber-800 border border-amber-300 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider;
+    @apply inline-flex items-center gap-1 rounded-md bg-secondary text-primary border border-primary/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider;
   }
 
   /* ---- Verified source marker ---- */
   .verified-marker {
-    @apply inline-flex items-center gap-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 text-[10px] font-bold;
+    @apply inline-flex items-center gap-1 rounded-md bg-primary text-primary-foreground border border-primary px-2 py-0.5 text-[10px] font-bold;
   }
 }
 

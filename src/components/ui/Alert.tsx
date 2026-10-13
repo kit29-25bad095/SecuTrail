@@ -21,17 +21,17 @@ const Alert = React.forwardRef<
       "relative w-full rounded-xl border p-4 text-sm [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
       {
         "bg-background text-foreground border-border": variant === "default",
-        "border-destructive/40 bg-destructive/5 text-destructive dark:border-destructive [&>svg]:text-destructive":
+        "border-primary/45 bg-secondary text-primary [&>svg]:text-primary":
           variant === "destructive",
-        "border-amber-300 bg-amber-50 text-amber-900 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-200 [&>svg]:text-amber-600":
+        "border-primary/35 bg-secondary text-primary [&>svg]:text-primary":
           variant === "warning",
-        "border-emerald-300 bg-emerald-50 text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200 [&>svg]:text-emerald-600":
+        "border-primary/25 bg-secondary text-primary [&>svg]:text-primary":
           variant === "success",
-        "border-red-400 bg-red-50 text-red-950 font-medium dark:border-red-700 dark:bg-red-950 dark:text-red-100 [&>svg]:text-red-700 shadow-sm":
+        "border-primary/50 bg-secondary text-primary font-medium [&>svg]:text-primary shadow-2xs":
           variant === "emergency",
-        "border-blue-200 bg-blue-50 text-blue-900 dark:border-blue-900 dark:bg-blue-950 dark:text-blue-200 [&>svg]:text-blue-600":
+        "border-primary/20 bg-secondary text-primary [&>svg]:text-primary":
           variant === "info",
-        "border-slate-300 bg-slate-50 text-slate-800 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 [&>svg]:text-slate-600":
+        "border-primary/15 bg-secondary text-primary [&>svg]:text-primary":
           variant === "privacy",
       },
       className
