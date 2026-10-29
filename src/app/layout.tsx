@@ -4,6 +4,7 @@ import "./globals.css";
 import { SafetyBar } from "@/components/safety/SafetyBar";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,8 +24,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FFFDD0" },
-    { media: "(prefers-color-scheme: dark)",  color: "#004225" },
+    { media: "(prefers-color-scheme: light)", color: "#F7F4FF" },
+    { media: "(prefers-color-scheme: dark)",  color: "#111827" },
   ],
 };
 
@@ -67,24 +68,46 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full scroll-smooth" suppressHydrationWarning>
+      <head>
+        {/* Synchronous script to prevent Flash of Unstyled Content (FOUC) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var t = localStorage.getItem('secutrail_theme');
+                  var d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  if (t === 'dark' || (!t && d) || (t === 'system' && d)) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-background text-foreground`}
       >
-        {/* Skip navigation link for keyboard users */}
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
+        <ThemeProvider>
+          {/* Skip navigation link for keyboard users */}
+          <a href="#main-content" className="skip-link">
+            Skip to main content
+          </a>
 
-        {/* Omnipresent Safety Bar: Quick Exit & Double-ESC */}
-        <SafetyBar />
+          {/* Omnipresent Safety Bar: Quick Exit & Double-ESC */}
+          <SafetyBar />
 
-        <Navigation />
+          <Navigation />
 
-        <main id="main-content" className="flex-1 flex flex-col" tabIndex={-1}>
-          {children}
-        </main>
+          <main id="main-content" className="flex-1 flex flex-col" tabIndex={-1}>
+            {children}
+          </main>
 
-        <Footer />
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

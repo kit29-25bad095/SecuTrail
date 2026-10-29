@@ -11,7 +11,9 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
     | "demo"
     | "warning"
     | "calm"
-    | "info";
+    | "info"
+    | "emotional"
+    | "legal";
   size?: "sm" | "default";
 }
 
@@ -44,6 +46,10 @@ function Badge({
             variant === "calm",
           "border-primary/20 bg-secondary text-primary":
             variant === "info",
+          "border-chip-emotional-border bg-chip-emotional text-chip-emotional-foreground font-semibold":
+            variant === "emotional",
+          "border-chip-legal-border bg-chip-legal text-chip-legal-foreground font-semibold":
+            variant === "legal",
         },
         {
           "px-2.5 py-0.5 text-xs": size === "default",

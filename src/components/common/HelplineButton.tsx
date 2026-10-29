@@ -27,38 +27,38 @@ interface HelplineButtonProps {
 const variantStyles = {
   emergency: {
     wrapper:
-      "border-[#004225]/40 bg-[#FFFDD0] hover:bg-[#FAF7BA] text-[#004225]",
-    iconWrapper: "bg-[#004225] text-[#FFFDD0]",
-    numberColor: "text-[#004225]",
-    labelColor: "text-[#004225]",
-    descColor: "text-[#004225]/80",
+      "border-primary/40 bg-card hover:bg-muted/80 text-foreground shadow-xs",
+    iconWrapper: "bg-primary text-primary-foreground",
+    numberColor: "text-foreground",
+    labelColor: "text-foreground",
+    descColor: "text-muted-foreground",
   },
   support: {
     wrapper:
-      "border-[#004225]/25 bg-[#FFFDD0] hover:bg-[#FAF7BA] text-[#004225]",
+      "border-chip-emotional-border bg-chip-emotional text-chip-emotional-foreground hover:opacity-95 shadow-xs",
     iconWrapper:
-      "bg-[#004225]/15 text-[#004225]",
-    numberColor: "text-[#004225]",
-    labelColor: "text-[#004225]",
-    descColor: "text-[#004225]/80",
+      "bg-primary/20 text-primary",
+    numberColor: "text-chip-emotional-foreground font-bold",
+    labelColor: "text-chip-emotional-foreground",
+    descColor: "text-chip-emotional-foreground/85",
   },
   legal: {
     wrapper:
-      "border-[#004225]/25 bg-[#FFFDD0] hover:bg-[#FAF7BA] text-[#004225]",
+      "border-chip-legal-border bg-chip-legal text-chip-legal-foreground hover:opacity-95 shadow-xs",
     iconWrapper:
-      "bg-[#004225]/15 text-[#004225]",
-    numberColor: "text-[#004225]",
-    labelColor: "text-[#004225]",
-    descColor: "text-[#004225]/80",
+      "bg-primary/20 text-primary",
+    numberColor: "text-chip-legal-foreground font-bold",
+    labelColor: "text-chip-legal-foreground",
+    descColor: "text-chip-legal-foreground/85",
   },
   "mental-health": {
     wrapper:
-      "border-[#004225]/25 bg-[#FFFDD0] hover:bg-[#FAF7BA] text-[#004225]",
+      "border-border bg-card hover:bg-muted text-foreground shadow-xs",
     iconWrapper:
-      "bg-[#004225]/15 text-[#004225]",
-    numberColor: "text-[#004225]",
-    labelColor: "text-[#004225]",
-    descColor: "text-[#004225]/80",
+      "bg-secondary text-secondary-foreground",
+    numberColor: "text-foreground",
+    labelColor: "text-foreground",
+    descColor: "text-muted-foreground",
   },
 } as const;
 

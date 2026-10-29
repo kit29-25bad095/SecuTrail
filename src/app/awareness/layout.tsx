@@ -7,7 +7,7 @@ export default function AwarenessLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col flex-1 bg-[#FFFDD0] min-h-screen">
+    <div className="flex flex-col flex-1 bg-background text-foreground min-h-screen">
       {/* Sub-header Navigation across all Awareness Track routes */}
       <AwarenessNav />
 

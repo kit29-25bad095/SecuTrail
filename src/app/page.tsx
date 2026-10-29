@@ -31,10 +31,10 @@ export default function Home() {
       {/* ------------------------------------------------------------ */}
       {/* 1. HERO SECTION */}
       {/* ------------------------------------------------------------ */}
-      <section className="relative overflow-hidden bg-background py-16 sm:py-24 border-b border-[#004225]/15">
+      <section className="relative overflow-hidden bg-background py-16 sm:py-24 border-b border-border">
         <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
           {/* Platform Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#004225]/20 bg-secondary px-4 py-1.5 text-xs font-semibold text-primary shadow-xs mb-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-4 py-1.5 text-xs font-semibold text-secondary-foreground shadow-xs mb-8">
             <ShieldCheck className="h-4 w-4 text-primary" />
             <span>Confidential &amp; Verified Decision-Support Platform</span>
           </div>
@@ -129,7 +129,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Track 1: Awareness Track */}
-            <div className="relative rounded-3xl border border-[#004225]/20 bg-card p-8 shadow-sm flex flex-col justify-between hover:border-primary/40 hover:shadow-md transition-all">
+            <div className="relative rounded-3xl border border-border bg-card p-8 shadow-sm flex flex-col justify-between hover:border-primary/40 hover:shadow-md transition-all">
               <div>
                 <div className="flex items-center justify-between mb-5">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary text-primary">
@@ -294,7 +294,7 @@ export default function Home() {
       {/* ------------------------------------------------------------ */}
       <section
         id="how-it-works"
-        className="py-16 sm:py-24 bg-background border-y border-[#004225]/15 scroll-mt-16"
+        className="py-16 sm:py-24 bg-background border-y border-border scroll-mt-16"
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
@@ -483,89 +483,89 @@ export default function Home() {
       {/* ------------------------------------------------------------ */}
       <section
         id="privacy"
-        className="py-16 sm:py-24 bg-[#004225] text-[#FFFDD0] scroll-mt-16"
+        className="py-16 sm:py-24 bg-card text-card-foreground border-y border-border scroll-mt-16"
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mb-12 space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#00361E] px-3 py-1 text-xs font-semibold text-[#FFFDD0] border border-[#FFFDD0]/30">
-              <Lock className="h-3.5 w-3.5 text-[#FAF7BA]" />
+            <div className="inline-flex items-center gap-2 rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground border border-border">
+              <Lock className="h-3.5 w-3.5 text-primary" />
               <span>Zero-PII Footprint</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#FFFDD0]">
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-foreground">
               Privacy by Architecture, Not Policy Promises.
             </h2>
-            <p className="text-sm sm:text-base text-[#FFFDD0]/85 leading-relaxed">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
               SecuTrail does not collect names, phone numbers, or account logins. We treat digital privacy as a vital physical safety requirement.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* What SecuTrail Protects */}
-            <div className="rounded-2xl border border-[#FFFDD0]/25 bg-[#00361E] p-6 sm:p-8 space-y-4">
-              <h3 className="text-lg font-bold text-[#FFFDD0] flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-[#FAF7BA] shrink-0" />
+            <div className="rounded-2xl border border-border bg-background p-6 sm:p-8 space-y-4 shadow-xs">
+              <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
                 <span>What SecuTrail Guarantees</span>
               </h3>
-              <ul className="space-y-3 text-xs sm:text-sm text-[#FFFDD0]/85">
+              <ul className="space-y-3 text-xs sm:text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-[#FAF7BA] shrink-0 mt-0.5" />
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                   <span>
-                    <strong>No Accounts or Sign-Ups:</strong> We never ask for your identity or credentials.
+                    <strong className="text-foreground">No Accounts or Sign-Ups:</strong> We never ask for your identity or credentials.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-[#FAF7BA] shrink-0 mt-0.5" />
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                   <span>
-                    <strong>Ephemeral RAM Sessions:</strong> Triage selections exist only in volatile memory and automatically expire after 30 minutes of inactivity.
+                    <strong className="text-foreground">Ephemeral RAM Sessions:</strong> Triage selections exist only in volatile memory and automatically expire after 30 minutes of inactivity.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-[#FAF7BA] shrink-0 mt-0.5" />
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                   <span>
-                    <strong>No Third-Party Analytics:</strong> No tracking pixels, Google Analytics, or advertising trackers.
+                    <strong className="text-foreground">No Third-Party Analytics:</strong> No tracking pixels, Google Analytics, or advertising trackers.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-[#FAF7BA] shrink-0 mt-0.5" />
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                   <span>
-                    <strong>Instant Selective State Wipe:</strong> Quick Exit immediately purges all SecuTrail localStorage and sessionStorage keys.
+                    <strong className="text-foreground">Instant Selective State Wipe:</strong> Quick Exit immediately purges all SecuTrail localStorage and sessionStorage keys.
                   </span>
                 </li>
               </ul>
             </div>
 
             {/* Honest Technical Limitations */}
-            <div className="rounded-2xl border border-[#FFFDD0]/25 bg-[#00361E] p-6 sm:p-8 space-y-4">
-              <h3 className="text-lg font-bold text-[#FFFDD0] flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5 text-[#FAF7BA] shrink-0" />
+            <div className="rounded-2xl border border-border bg-background p-6 sm:p-8 space-y-4 shadow-xs">
+              <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                <AlertTriangle className="h-5 w-5 text-primary shrink-0" />
                 <span>Honest Limitations (Threat Model)</span>
               </h3>
-              <p className="text-xs text-[#FFFDD0]/85 leading-relaxed">
-                We never make false claims about wiping device evidence. Quick Exit cleans application state, but <strong>cannot erase</strong>:
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                We never make false claims about wiping device evidence. Quick Exit cleans application state, but <strong className="text-foreground">cannot erase</strong>:
               </p>
-              <ul className="space-y-2 text-xs text-[#FFFDD0]/85">
+              <ul className="space-y-2 text-xs text-muted-foreground">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#FAF7BA] font-bold shrink-0">•</span>
+                  <span className="text-primary font-bold shrink-0">•</span>
                   <span>
-                    <strong>Browser History:</strong> URLs remain in local history unless private/incognito mode was used.
+                    <strong className="text-foreground">Browser History:</strong> URLs remain in local history unless private/incognito mode was used.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#FAF7BA] font-bold shrink-0">•</span>
+                  <span className="text-primary font-bold shrink-0">•</span>
                   <span>
-                    <strong>Network Logs:</strong> Wi-Fi routers and Internet Service Providers record domain queries.
+                    <strong className="text-foreground">Network Logs:</strong> Wi-Fi routers and Internet Service Providers record domain queries.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#FAF7BA] font-bold shrink-0">•</span>
+                  <span className="text-primary font-bold shrink-0">•</span>
                   <span>
-                    <strong>Device Spyware:</strong> Background keyloggers or stalkerware record screens in real-time.
+                    <strong className="text-foreground">Device Spyware:</strong> Background keyloggers or stalkerware record screens in real-time.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#FAF7BA] font-bold shrink-0">•</span>
+                  <span className="text-primary font-bold shrink-0">•</span>
                   <span>
-                    <strong>Direct Observation:</strong> Someone standing directly behind you who saw the screen.
+                    <strong className="text-foreground">Direct Observation:</strong> Someone standing directly behind you who saw the screen.
                   </span>
                 </li>
               </ul>
@@ -574,7 +574,7 @@ export default function Home() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-[#FFFDD0]/40 bg-[#004225] text-[#FFFDD0] hover:bg-[#00321C] text-xs rounded-lg"
+                    className="border-border bg-card text-foreground hover:bg-muted text-xs rounded-lg"
                   >
                     Read Complete Threat Model &amp; Privacy Center →
                   </Button>
@@ -678,7 +678,7 @@ export default function Home() {
       {/* ------------------------------------------------------------ */}
       <section
         id="user-agency"
-        className="py-16 sm:py-24 bg-background border-y border-[#004225]/15 scroll-mt-16"
+        className="py-16 sm:py-24 bg-background border-y border-border scroll-mt-16"
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center space-y-4">

@@ -12,20 +12,20 @@ export function SafetyBar() {
   return (
     <aside
       aria-label="Safety emergency escape bar"
-      className="sticky top-0 z-50 w-full border-b border-[#004225]/20 bg-[#FFFDD0]/95 px-4 py-2 backdrop-blur-md text-[#004225] transition-colors shadow-2xs"
+      className="sticky top-0 z-50 w-full border-b border-border bg-background/95 px-4 py-2 backdrop-blur-md text-foreground transition-colors shadow-2xs"
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#004225]/10 text-[#004225]">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 text-primary">
             <ShieldAlert className="h-4 w-4 shrink-0" />
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
-            <span className="text-xs sm:text-sm font-bold text-[#004225]">
+            <span className="text-xs sm:text-sm font-bold text-foreground">
               Need to leave quickly?
             </span>
-            <span className="text-[11px] sm:text-xs text-[#004225]/80 hidden md:inline">
+            <span className="text-[11px] sm:text-xs text-muted-foreground hidden md:inline">
               Click Quick Exit or press{" "}
-              <kbd className="inline-flex items-center gap-0.5 rounded bg-[#004225]/10 px-1.5 py-0.5 font-mono text-[10px] font-bold text-[#004225] border border-[#004225]/20 shadow-2xs">
+              <kbd className="inline-flex items-center gap-0.5 rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] font-bold text-muted-foreground border border-border shadow-2xs">
                 ESC × 2
               </kbd>{" "}
               anytime.

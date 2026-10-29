@@ -18,6 +18,7 @@ import {
 import { cn } from "@/lib/utils";
 import { QuickExit } from "@/components/safety/QuickExit";
 import { Button } from "@/components/ui/Button";
+import { ThemeSelector } from "@/components/theme/ThemeSelector";
 
 export function Navigation() {
   const pathname = usePathname();
@@ -148,6 +149,9 @@ export function Navigation() {
             <QuickExit size="sm" />
           </div>
 
+          {/* Theme Mode Selector */}
+          <ThemeSelector />
+
           <Link
             href="/admin"
             className="text-xs text-muted-foreground hover:text-foreground hidden xl:inline-flex items-center gap-1 px-2 py-1 rounded-md border border-border/70 hover:bg-secondary transition-colors"
@@ -189,6 +193,12 @@ export function Navigation() {
               </div>
               <QuickExit size="sm" />
             </div>
+          </div>
+
+          {/* Mobile Theme Selector */}
+          <div className="flex items-center justify-between px-1 py-1.5 border-b mb-2">
+            <span className="text-xs font-semibold text-foreground">Display Theme</span>
+            <ThemeSelector variant="pills" />
           </div>
 
           {/* Primary Mobile Action */}

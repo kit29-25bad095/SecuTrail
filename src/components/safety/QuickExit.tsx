@@ -50,7 +50,7 @@ export function QuickExit({ className, size = "default" }: QuickExitButtonProps)
       aria-keyshortcuts="Escape Escape"
       title="Quick Exit (Press ESC twice or click to leave immediately)"
       className={cn(
-        "inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#004225] font-bold text-[#FFFDD0] border border-[#004225] shadow-xs transition-all duration-150 hover:bg-[#00331C] active:bg-[#002213] focus:outline-none focus:ring-2 focus:ring-[#004225] focus:ring-offset-2 select-none cursor-pointer",
+        "inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary font-bold text-primary-foreground border border-primary shadow-xs transition-all duration-150 hover:bg-primary/90 active:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 select-none cursor-pointer",
         {
           "text-xs px-2.5 py-1 min-h-[32px]": size === "sm",
           "text-sm px-4 py-2 min-h-[40px]": size === "default",

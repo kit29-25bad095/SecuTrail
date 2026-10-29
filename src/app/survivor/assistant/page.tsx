@@ -54,19 +54,19 @@ const CATEGORY_PROMPTS = [
     icon: "💚",
     label: "Emotional Support",
     prompt: "I'm feeling overwhelmed and need someone to talk to.",
-    color: "border-emerald-300 dark:border-emerald-800 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-200 hover:bg-emerald-100/70",
+    color: "border-chip-emotional-border bg-chip-emotional text-chip-emotional-foreground hover:opacity-90",
   },
   {
     icon: "⚖️",
     label: "Legal Awareness",
     prompt: "What are my rights and legal options under Indian law?",
-    color: "border-purple-300 dark:border-purple-800 bg-purple-50/70 dark:bg-purple-950/40 text-purple-900 dark:text-purple-200 hover:bg-purple-100/70",
+    color: "border-chip-legal-border bg-chip-legal text-chip-legal-foreground hover:opacity-90",
   },
   {
     icon: "📚",
     label: "Learn & Understand",
     prompt: "What should I know about consent and personal boundaries?",
-    color: "border-blue-300 dark:border-blue-800 bg-blue-50/70 dark:bg-blue-950/40 text-blue-900 dark:text-blue-200 hover:bg-blue-100/70",
+    color: "border-border bg-card text-foreground hover:bg-muted/80",
   },
 ];
 
@@ -280,10 +280,10 @@ export default function DecisionAssistantPage() {
       {/* HEADER */}
       {/* ------------------------------------------------------------ */}
       <div className="text-center max-w-2xl mx-auto space-y-2">
-        <Badge variant="outline" className="text-[11px] uppercase font-bold tracking-wider bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-800">
+        <Badge variant="outline" className="text-[11px] uppercase font-bold tracking-wider bg-card text-foreground border-border">
           Sentimentally Balanced AI • Confidential Support
         </Badge>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground">
           Speak with AI Assistant
         </h1>
         <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
@@ -321,7 +321,7 @@ export default function DecisionAssistantPage() {
         <div className="flex items-center justify-between px-4 py-3 border-b bg-muted/40 backdrop-blur-sm">
           <div className="flex items-center gap-2.5">
             <div className="relative">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 shadow-2xs">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-2xs">
                 <Bot className="h-4 w-4" />
               </span>
               <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-background animate-pulse" />
@@ -329,11 +329,11 @@ export default function DecisionAssistantPage() {
             <div>
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-xs font-bold text-foreground">SecuTrail Assistant</span>
-                <span className="inline-flex items-center gap-0.5 rounded-full bg-blue-100 dark:bg-blue-950 px-1.5 py-0.2 text-[10px] font-semibold text-blue-800 dark:text-blue-300">
+                <span className="inline-flex items-center gap-0.5 rounded-full bg-secondary px-2 py-0.5 text-[10px] font-semibold text-secondary-foreground border border-border">
                   <Sparkles className="h-3 w-3" />
                   <span>Sentimentally Balanced</span>
                 </span>
-                <span className="inline-flex items-center gap-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 px-1.5 py-0.2 text-[10px] font-semibold text-emerald-800 dark:text-emerald-300">
+                <span className="inline-flex items-center gap-0.5 rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold text-primary border border-primary/20">
                   <ShieldCheck className="h-3 w-3" />
                   <span>Verified RAG</span>
                 </span>
@@ -371,48 +371,48 @@ export default function DecisionAssistantPage() {
                 // ---------------- USER MESSAGE BUBBLE ----------------
                 <div className="flex justify-end items-end gap-2">
                   <div className="flex flex-col items-end max-w-[85%] sm:max-w-[75%] space-y-1">
-                    <div className="rounded-2xl rounded-br-xs bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 px-4 py-2.5 shadow-xs text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">
+                    <div className="rounded-2xl rounded-br-xs bg-primary text-primary-foreground px-4 py-2.5 shadow-xs text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">
                       {msg.content}
                     </div>
                     <span className="text-[10px] text-muted-foreground pr-1">
                       {formatTime(msg.timestamp)}
                     </span>
                   </div>
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] mb-4">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary text-secondary-foreground text-[10px] mb-4">
                     <User className="h-3.5 w-3.5" />
                   </span>
                 </div>
               ) : (
                 // ---------------- ASSISTANT MESSAGE CARD ----------------
                 <div className="flex items-start gap-2.5 max-w-[95%] sm:max-w-[90%]">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 text-xs shadow-2xs mt-1">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs shadow-2xs mt-1">
                     <Bot className="h-4 w-4" />
                   </span>
 
                   <div className="flex-1 space-y-3">
                     {/* Emergency Alert Banner if Critical */}
                     {msg.safetyClassification?.requiresEmergencyRouting && (
-                      <Alert variant="emergency" className="border-2 border-red-500 bg-red-50 dark:bg-red-950/60 shadow-xs">
-                        <ShieldAlert className="h-5 w-5 text-red-600 dark:text-red-400" />
+                      <Alert variant="emergency" className="border-2 border-destructive bg-destructive/10 text-foreground shadow-xs">
+                        <ShieldAlert className="h-5 w-5 text-destructive" />
                         <div>
-                          <AlertTitle className="font-bold text-red-950 dark:text-red-100 text-xs sm:text-sm">
+                          <AlertTitle className="font-bold text-foreground text-xs sm:text-sm">
                             Priority Safety Notice
                           </AlertTitle>
-                          <AlertDescription className="text-xs text-red-900 dark:text-red-200 leading-relaxed mt-1">
+                          <AlertDescription className="text-xs text-muted-foreground leading-relaxed mt-1">
                             {msg.safetyClassification.guidanceMessage ||
                               "Immediate safety risk detected. Please prioritize physical security."}
                           </AlertDescription>
                           <div className="mt-2.5 flex flex-wrap gap-2">
                             <a
                               href="tel:112"
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600 text-white font-bold text-xs hover:bg-red-700 transition-colors shadow-2xs"
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-destructive text-destructive-foreground font-bold text-xs hover:bg-destructive/90 transition-colors shadow-2xs"
                             >
                               <PhoneCall className="h-3.5 w-3.5" />
                               <span>Call 112 (National Emergency)</span>
                             </a>
                             <a
                               href="tel:1091"
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-red-300 text-red-800 font-bold text-xs hover:bg-red-50 transition-colors shadow-2xs"
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-bold text-xs hover:bg-muted transition-colors shadow-2xs"
                             >
                               <span>Call 1091 (Women Helpline)</span>
                             </a>
@@ -430,7 +430,13 @@ export default function DecisionAssistantPage() {
                             msg.relevantDomains.map((domain) => (
                               <Badge
                                 key={domain}
-                                variant="verified"
+                                variant={
+                                  domain === "EMOTIONAL"
+                                    ? "emotional"
+                                    : domain === "LEGAL"
+                                    ? "legal"
+                                    : "default"
+                                }
                                 className="text-[10px] uppercase font-bold py-0.5 px-2"
                               >
                                 {domain === "MEDICAL" && "Medical Prophylaxis"}
@@ -571,14 +577,14 @@ export default function DecisionAssistantPage() {
           {/* Typing Indicator while Assistant is Thinking */}
           {loading && (
             <div className="flex items-start gap-2.5">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 text-xs shadow-2xs mt-1">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs shadow-2xs mt-1">
                 <Bot className="h-4 w-4" />
               </span>
               <div className="rounded-2xl rounded-tl-xs border border-border/80 bg-card p-3 shadow-xs flex items-center gap-2">
                 <span className="flex items-center gap-1">
-                  <span className="h-2 w-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "0ms" }} />
-                  <span className="h-2 w-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "150ms" }} />
-                  <span className="h-2 w-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+                  <span className="h-2 w-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: "0ms" }} />
+                  <span className="h-2 w-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: "150ms" }} />
+                  <span className="h-2 w-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: "300ms" }} />
                 </span>
                 <span className="text-[11px] text-muted-foreground">
                   Consulting verified Indian statutes &amp; clinical guidelines...
@@ -595,7 +601,7 @@ export default function DecisionAssistantPage() {
         {/* ------------------------------------------------------------ */}
         <div className="px-4 py-2 border-t bg-muted/20">
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider shrink-0 flex items-center gap-1 mr-1">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider shrink-0 flex items-center gap-1 mr-1">
               <Sparkles className="h-3 w-3 text-primary" />
               <span>Suggestions:</span>
             </span>
@@ -605,7 +611,7 @@ export default function DecisionAssistantPage() {
                 type="button"
                 onClick={() => handleSendMessage(suggestion)}
                 disabled={loading}
-                className="rounded-full border border-slate-200 dark:border-slate-800 bg-background px-2.5 py-1 text-xs text-slate-700 dark:text-slate-300 hover:bg-muted hover:border-slate-300 transition-colors whitespace-nowrap shrink-0 shadow-2xs disabled:opacity-50 cursor-pointer active:scale-95"
+                className="rounded-full border border-border bg-card px-2.5 py-1 text-xs text-foreground hover:bg-muted transition-colors whitespace-nowrap shrink-0 shadow-2xs disabled:opacity-50 cursor-pointer active:scale-95"
               >
                 &ldquo;{suggestion}&rdquo;
               </button>
@@ -637,13 +643,13 @@ export default function DecisionAssistantPage() {
                 }}
                 placeholder="Tell me what's on your mind... (Press Enter to send)"
                 rows={1}
-                className="w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-xs sm:text-sm shadow-xs placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-100 resize-none min-h-[44px]"
+                className="w-full rounded-xl border border-input bg-background text-foreground px-3.5 py-2.5 text-xs sm:text-sm shadow-xs placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none min-h-[44px]"
               />
 
               <Button
                 type="submit"
                 disabled={loading || !inputMessage.trim()}
-                className="h-11 px-4 rounded-xl gap-1.5 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white shrink-0 shadow-xs cursor-pointer transition-all active:scale-95 disabled:cursor-not-allowed"
+                className="h-11 px-4 rounded-xl gap-1.5 text-xs font-semibold bg-primary hover:bg-primary/90 text-primary-foreground shrink-0 shadow-xs cursor-pointer transition-all active:scale-95 disabled:cursor-not-allowed"
               >
                 <Send className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">{loading ? "Sending..." : "Send"}</span>

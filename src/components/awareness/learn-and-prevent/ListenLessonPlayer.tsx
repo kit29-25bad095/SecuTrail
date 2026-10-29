@@ -99,14 +99,14 @@ export function ListenLessonPlayer() {
     >
       {/* Header */}
       <div className="text-center mb-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#004225]/10 text-[#004225] text-xs font-semibold tracking-wider uppercase mb-2">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold tracking-wider uppercase mb-2">
           <Headphones className="w-4 h-4" />
           <span>Audio Experience</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#004225] tracking-tight">
+        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground tracking-tight">
           Listen Instead of Read
         </h2>
-        <p className="text-sm text-[#004225]/75 mt-2 max-w-md mx-auto leading-relaxed">
+        <p className="text-sm text-muted-foreground mt-2 max-w-md mx-auto leading-relaxed">
           Listen to concise, calm audio narrations generated directly in your browser with zero external tracking.
         </p>
       </div>
@@ -121,8 +121,8 @@ export function ListenLessonPlayer() {
             onClick={() => handleLessonChange(idx)}
             className={`px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer ${
               idx === selectedLessonIndex
-                ? "bg-[#004225] text-[#FFFDD0] shadow-xs"
-                : "bg-[#004225]/10 text-[#004225] hover:bg-[#004225]/15"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-primary/10 text-primary hover:bg-primary/15"
             }`}
           >
             {lesson.title}
@@ -131,22 +131,22 @@ export function ListenLessonPlayer() {
       </div>
 
       {/* Main Audio Player Card */}
-      <div className="w-full max-w-2xl rounded-3xl bg-[#FFFFF2] border-2 border-[#004225]/20 p-6 sm:p-8 shadow-sm relative overflow-hidden transition-all duration-300">
+      <div className="w-full max-w-2xl rounded-3xl bg-card border border-border p-6 sm:p-8 shadow-sm relative overflow-hidden transition-all duration-300">
         {/* Lesson Header */}
-        <div className="flex items-center justify-between border-b border-[#004225]/15 pb-4 mb-4">
+        <div className="flex items-center justify-between border-b border-border pb-4 mb-4">
           <div>
-            <span className="text-xs uppercase font-bold text-[#004225]/70 tracking-wider">
+            <span className="text-xs uppercase font-bold text-muted-foreground tracking-wider">
               {currentLesson.category} • {currentLesson.durationEstimate}
             </span>
-            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#004225] mt-1">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-foreground mt-1">
               {currentLesson.title}
             </h3>
           </div>
-          <BotanicalSprig className="w-6 h-6 opacity-60" />
+          <BotanicalSprig className="w-6 h-6 opacity-60 text-primary" />
         </div>
 
         {/* Audio Controls Bar */}
-        <div className="p-4 rounded-2xl bg-[#FFFDD0]/70 border border-[#004225]/15 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="p-4 rounded-2xl bg-primary/5 border border-border mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             {!isPlaying ? (
               <button
@@ -154,7 +154,7 @@ export function ListenLessonPlayer() {
                 onClick={playAudio}
                 disabled={!isSupported}
                 aria-label={isPaused ? "Resume narration" : "Play narration"}
-                className="w-12 h-12 rounded-full bg-[#004225] text-[#FFFDD0] flex items-center justify-center hover:bg-[#00331D] focus:outline-none focus:ring-2 focus:ring-[#004225] focus:ring-offset-2 transition-all shadow-sm cursor-pointer disabled:opacity-40"
+                className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all shadow-sm cursor-pointer disabled:opacity-40"
               >
                 <Play className="w-5 h-5 ml-0.5" />
               </button>
@@ -163,7 +163,7 @@ export function ListenLessonPlayer() {
                 type="button"
                 onClick={pauseAudio}
                 aria-label="Pause narration"
-                className="w-12 h-12 rounded-full bg-[#004225] text-[#FFFDD0] flex items-center justify-center hover:bg-[#00331D] focus:outline-none focus:ring-2 focus:ring-[#004225] transition-all shadow-sm cursor-pointer"
+                className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary transition-all shadow-sm cursor-pointer"
               >
                 <Pause className="w-5 h-5" />
               </button>
@@ -174,14 +174,14 @@ export function ListenLessonPlayer() {
               onClick={stopAudio}
               disabled={!isPlaying && !isPaused}
               aria-label="Stop narration"
-              className="w-10 h-10 rounded-full border border-[#004225]/30 text-[#004225] flex items-center justify-center hover:bg-[#004225]/10 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
+              className="w-10 h-10 rounded-full border border-border text-foreground flex items-center justify-center hover:bg-primary/10 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
             >
               <Square className="w-4 h-4" />
             </button>
           </div>
 
-          <div className="text-xs text-[#004225]/85 flex items-center gap-2">
-            <Volume2 className="w-4 h-4 text-[#004225]" />
+          <div className="text-xs text-muted-foreground flex items-center gap-2">
+            <Volume2 className="w-4 h-4 text-primary" />
             <span>
               {isPlaying
                 ? "Playing narration..."
@@ -194,8 +194,8 @@ export function ListenLessonPlayer() {
 
         {/* Graceful Fallback Notice if SpeechSynthesis is unsupported */}
         {!isSupported && (
-          <div className="mb-4 p-3 rounded-xl bg-[#004225]/8 border border-[#004225]/15 flex items-start gap-2 text-xs text-[#004225]">
-            <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
+          <div className="mb-4 p-3 rounded-xl bg-primary/10 border border-primary/20 flex items-start gap-2 text-xs text-foreground">
+            <Info className="w-4 h-4 flex-shrink-0 mt-0.5 text-primary" />
             <p>
               Your browser does not support local speech synthesis audio. You can read the complete transcript directly below.
             </p>
@@ -204,28 +204,28 @@ export function ListenLessonPlayer() {
 
         {/* Concise Summary */}
         <div className="space-y-3 mb-6">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#004225]/80">
+          <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
             Concise Lesson Summary
           </span>
-          <p className="text-sm text-[#004225] leading-relaxed font-sans bg-[#FFFFF8] p-4 rounded-2xl border border-[#004225]/15">
+          <p className="text-sm text-foreground leading-relaxed font-sans bg-accent/5 p-4 rounded-2xl border border-border">
             {currentLesson.conciseSummary}
           </p>
         </div>
 
         {/* Transcript Toggle */}
-        <div className="pt-3 border-t border-[#004225]/15">
+        <div className="pt-3 border-t border-border">
           <button
             type="button"
             onClick={() => setShowFullTranscript((prev) => !prev)}
             aria-expanded={showFullTranscript}
-            className="text-xs font-semibold text-[#004225] hover:underline inline-flex items-center gap-1.5 cursor-pointer"
+            className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1.5 cursor-pointer"
           >
             <BookOpen className="w-3.5 h-3.5" />
             <span>{showFullTranscript ? "Hide full narration text" : "Read full narration text"}</span>
           </button>
 
           {showFullTranscript && (
-            <div className="mt-4 p-4 rounded-2xl bg-[#FFFFF8] border border-[#004225]/15 text-xs sm:text-sm text-[#004225]/90 leading-relaxed font-serif animate-fade-in">
+            <div className="mt-4 p-4 rounded-2xl bg-card border border-border text-xs sm:text-sm text-muted-foreground leading-relaxed font-serif animate-fade-in">
               <p>{currentLesson.fullTranscript}</p>
             </div>
           )}

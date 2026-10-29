@@ -9,45 +9,55 @@
 
 @layer base {
   :root {
-    /* ---- Core Surface Palette: Warm Cream (#FFFDD0) & Forest Green (#004225) ---- */
-    /* Warm Cream background */
-    --background:       57 100% 91%;      /* #FFFDD0 */
-    --foreground:       154 100% 13%;     /* #004225 */
+    /* ============================================================
+       THEME 1: LAVENDER SERENITY (LIGHT MODE)
+       ============================================================ */
+    --background:             256 100% 98%;      /* #F7F4FF */
+    --foreground:             254 23% 18%;       /* #29243A */
 
-    /* Card surfaces — Warm light cream */
-    --card:             57 100% 96%;      /* #FFFFF2 */
-    --card-foreground:  154 100% 13%;     /* #004225 */
+    /* Card surface — Crisp Pure White */
+    --card:                   0 0% 100%;         /* #FFFFFF */
+    --card-foreground:        254 23% 18%;       /* #29243A */
 
     /* Popover / overlays */
-    --popover:          57 100% 96%;
-    --popover-foreground: 154 100% 13%;
+    --popover:                0 0% 100%;         /* #FFFFFF */
+    --popover-foreground:     254 23% 18%;       /* #29243A */
 
-    /* ---- Brand Primary — Forest Green (#004225) ---- */
-    --primary:          154 100% 13%;     /* #004225 */
-    --primary-foreground: 57 100% 91%;    /* #FFFDD0 */
+    /* Brand Primary — Lavender Serenity (#7663B8) */
+    --primary:                253 38% 55%;       /* #7663B8 */
+    --primary-foreground:     0 0% 100%;         /* #FFFFFF */
 
-    /* ---- Secondary — Light Cream Tint ---- */
-    --secondary:        57 70% 86%;       /* #FAF7BE */
-    --secondary-foreground: 154 100% 13%;
+    /* Secondary — Soft Lavender Accent */
+    --secondary:              260 57% 86%;       /* #D5C8F0 */
+    --secondary-foreground:   254 23% 18%;       /* #29243A */
 
-    /* ---- Muted / Subdued ---- */
-    --muted:            57 45% 88%;
-    --muted-foreground: 154 60% 24%;
+    /* Muted & Secondary Text (#514B60) */
+    --muted:                  258 40% 95%;       /* Soft lavender-tinted background */
+    --muted-foreground:       257 12% 34%;       /* #514B60 */
 
-    /* ---- Accent — Forest Green Tint ---- */
-    --accent:           154 35% 85%;
-    --accent-foreground: 154 100% 13%;
+    /* Accent (#D5C8F0) */
+    --accent:                 260 57% 86%;       /* #D5C8F0 */
+    --accent-foreground:      254 23% 18%;       /* #29243A */
 
-    /* ---- Destructive / Emergency ---- */
-    --destructive:      0 72% 40%;
-    --destructive-foreground: 57 100% 91%;
+    /* Destructive / Emergency */
+    --destructive:            0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* ---- Borders & Inputs ---- */
-    --border:           154 30% 75%;
-    --input:            154 30% 75%;
-    --ring:             154 100% 13%;
+    /* Borders & Inputs (#E8E0FA) */
+    --border:                 259 72% 93%;       /* #E8E0FA */
+    --input:                  259 72% 93%;       /* #E8E0FA */
+    --ring:                   253 38% 55%;       /* #7663B8 */
 
-    /* ---- Border Radius Scale ---- */
+    /* Dedicated Domain Chips — Light Mode */
+    --chip-emotional:            259 72% 93%;    /* #E8E0FA */
+    --chip-emotional-foreground: 254 23% 18%;    /* #29243A */
+    --chip-emotional-border:     260 57% 86%;    /* #D5C8F0 */
+
+    --chip-legal:                221 76% 94%;    /* #E2EAFB */
+    --chip-legal-foreground:     224 64% 33%;    /* #1E3A8A */
+    --chip-legal-border:         217 91% 86%;    /* #BFDBFE */
+
+    /* Border Radius Scale */
     --radius-xs:  0.25rem;   /* 4px  */
     --radius-sm:  0.375rem;  /* 6px  */
     --radius:     0.5rem;    /* 8px  — default */
@@ -57,7 +67,7 @@
     --radius-2xl: 1.25rem;   /* 20px */
     --radius-3xl: 1.5rem;    /* 24px */
 
-    /* ---- Spacing Scale (supplement Tailwind default) ---- */
+    /* Spacing Scale */
     --space-1:   0.25rem;
     --space-2:   0.5rem;
     --space-3:   0.75rem;
@@ -68,10 +78,10 @@
     --space-12:  3rem;
     --space-16:  4rem;
 
-    /* ---- Typography Scale ---- */
+    /* Typography Scale */
     --font-size-xs:   0.6875rem;   /* 11px */
     --font-size-sm:   0.8125rem;   /* 13px */
-    --font-size-base: 0.9375rem;   /* 15px — slightly generous for readability */
+    --font-size-base: 0.9375rem;   /* 15px */
     --font-size-lg:   1.0625rem;   /* 17px */
     --font-size-xl:   1.1875rem;   /* 19px */
     --font-size-2xl:  1.375rem;    /* 22px */
@@ -80,21 +90,21 @@
     --font-size-5xl:  2.5rem;      /* 40px */
     --font-size-6xl:  3rem;        /* 48px */
 
-    /* ---- Line Heights ---- */
+    /* Line Heights */
     --leading-tight:  1.25;
     --leading-snug:   1.375;
     --leading-normal: 1.5;
     --leading-relaxed:1.625;
     --leading-loose:  1.75;
 
-    /* ---- Shadow Scale ---- */
-    --shadow-xs:  0 1px 2px 0 rgb(0 66 37 / 0.04);
-    --shadow-sm:  0 1px 3px 0 rgb(0 66 37 / 0.07), 0 1px 2px -1px rgb(0 66 37 / 0.06);
-    --shadow:     0 4px 6px -1px rgb(0 66 37 / 0.07), 0 2px 4px -2px rgb(0 66 37 / 0.05);
-    --shadow-md:  0 10px 15px -3px rgb(0 66 37 / 0.06), 0 4px 6px -4px rgb(0 66 37 / 0.04);
-    --shadow-lg:  0 20px 25px -5px rgb(0 66 37 / 0.05), 0 8px 10px -6px rgb(0 66 37 / 0.04);
+    /* Shadow Scale */
+    --shadow-xs:  0 1px 2px 0 rgb(41 36 58 / 0.05);
+    --shadow-sm:  0 1px 3px 0 rgb(41 36 58 / 0.08), 0 1px 2px -1px rgb(41 36 58 / 0.06);
+    --shadow:     0 4px 6px -1px rgb(41 36 58 / 0.08), 0 2px 4px -2px rgb(41 36 58 / 0.05);
+    --shadow-md:  0 10px 15px -3px rgb(41 36 58 / 0.07), 0 4px 6px -4px rgb(41 36 58 / 0.04);
+    --shadow-lg:  0 20px 25px -5px rgb(41 36 58 / 0.06), 0 8px 10px -6px rgb(41 36 58 / 0.04);
 
-    /* ---- Safety-specific tokens ---- */
+    /* Safety-specific tokens */
     --emergency-bg:     0 100% 97%;
     --emergency-border: 0 84% 88%;
     --emergency-text:   0 72% 40%;
@@ -103,54 +113,74 @@
     --caution-border:   38 92% 80%;
     --caution-text:     30 90% 35%;
 
-    --safe-bg:          57 100% 96%;
-    --safe-border:      154 30% 75%;
-    --safe-text:        154 100% 13%;
+    --safe-bg:          256 100% 98%;
+    --safe-border:      259 72% 93%;
+    --safe-text:        254 23% 18%;
 
-    --privacy-bg:       57 80% 93%;
-    --privacy-border:   154 25% 75%;
-    --privacy-text:     154 100% 13%;
+    --privacy-bg:       260 57% 96%;
+    --privacy-border:   259 72% 93%;
+    --privacy-text:     254 23% 18%;
 
-    /* ---- Transition ---- */
+    /* Transitions */
     --transition-fast:  100ms ease;
     --transition-base:  180ms ease;
     --transition-slow:  300ms ease;
   }
 
   /* ============================================================
-     DARK MODE OVERRIDES (Inverted Warm Cream & Forest Green)
+     THEME 2: MIDNIGHT & ICE (DARK MODE)
      ============================================================ */
   .dark {
-    --background:       154 100% 13%;     /* #004225 */
-    --foreground:       57 100% 91%;      /* #FFFDD0 */
+    --background:             221 39% 11%;       /* #111827 */
+    --foreground:             210 14% 96%;       /* #F3F4F6 */
 
-    --card:             154 100% 11%;
-    --card-foreground:  57 100% 91%;
+    /* Card surface — Slate Charcoal (#1F2937) */
+    --card:                   215 28% 17%;       /* #1F2937 */
+    --card-foreground:        210 14% 96%;       /* #F3F4F6 */
 
-    --popover:          154 100% 11%;
-    --popover-foreground: 57 100% 91%;
+    /* Popover / overlays */
+    --popover:                215 28% 17%;       /* #1F2937 */
+    --popover-foreground:     210 14% 96%;       /* #F3F4F6 */
 
-    --primary:          57 100% 91%;      /* #FFFDD0 */
-    --primary-foreground: 154 100% 13%;   /* #004225 */
+    /* Brand Primary — Ice Blue (#60A5FA) */
+    --primary:                213 94% 68%;       /* #60A5FA */
+    --primary-foreground:     221 39% 11%;       /* #111827 */
 
-    --secondary:        154 70% 18%;
-    --secondary-foreground: 57 100% 91%;
+    /* Secondary — Dark Surface Accent (#374151) */
+    --secondary:              217 19% 27%;       /* #374151 */
+    --secondary-foreground:   210 14% 96%;       /* #F3F4F6 */
 
-    --muted:            154 60% 18%;
-    --muted-foreground: 57 60% 75%;
+    /* Muted & Secondary Text (#D1D5DB) */
+    --muted:                  215 25% 20%;       /* Subtle elevated charcoal */
+    --muted-foreground:       218 11% 84%;       /* #D1D5DB */
 
-    --accent:           154 50% 22%;
-    --accent-foreground: 57 100% 91%;
+    /* Accent — Bright Cyan Ice (#67E8F9) */
+    --accent:                 187 92% 69%;       /* #67E8F9 */
+    --accent-foreground:      221 39% 11%;       /* #111827 */
 
-    --destructive:      0 60% 40%;
-    --destructive-foreground: 57 100% 91%;
+    /* Destructive / Emergency */
+    --destructive:            0 62% 45%;
+    --destructive-foreground: 210 14% 96%;
 
-    --border:           154 40% 25%;
-    --input:            154 40% 25%;
-    --ring:             57 100% 91%;
+    /* Borders & Inputs (#374151) */
+    --border:                 217 19% 27%;       /* #374151 */
+    --input:                  217 19% 27%;       /* #374151 */
+    --ring:                   213 94% 68%;       /* #60A5FA */
 
-    --shadow-xs:  0 1px 2px 0 rgb(0 0 0 / 0.3);
-    --shadow-sm:  0 1px 3px 0 rgb(0 0 0 / 0.35), 0 1px 2px -1px rgb(0 0 0 / 0.25);
+    /* Dedicated Domain Chips — Dark Mode */
+    --chip-emotional:            213 34% 22%;    /* #25364B */
+    --chip-emotional-foreground: 210 14% 96%;    /* #F3F4F6 */
+    --chip-emotional-border:     217 19% 27%;    /* #374151 */
+
+    --chip-legal:                196 64% 24%;    /* #164E63 */
+    --chip-legal-foreground:     187 92% 69%;    /* #67E8F9 */
+    --chip-legal-border:         198 69% 28%;    /* #155E75 */
+
+    --shadow-xs:  0 1px 2px 0 rgb(0 0 0 / 0.4);
+    --shadow-sm:  0 1px 3px 0 rgb(0 0 0 / 0.5), 0 1px 2px -1px rgb(0 0 0 / 0.35);
+    --shadow:     0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.35);
+    --shadow-md:  0 10px 15px -3px rgb(0 0 0 / 0.45), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+    --shadow-lg:  0 20px 25px -5px rgb(0 0 0 / 0.45), 0 8px 10px -6px rgb(0 0 0 / 0.3);
   }
 
   /* ============================================================
@@ -165,6 +195,7 @@
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    transition: background-color 200ms ease, color 200ms ease;
   }
 
   body {
