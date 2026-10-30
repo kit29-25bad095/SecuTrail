@@ -16,15 +16,7 @@ import { Button } from "@/components/ui/Button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { SupportDomain } from "@/types";
-
-const INDIAN_STATES = [
-  { code: "DL", name: "Delhi", districts: ["South Delhi", "New Delhi", "South West Delhi", "North Delhi"] },
-  { code: "MH", name: "Maharashtra", districts: ["Mumbai", "Pune", "Thane", "Nagpur"] },
-  { code: "KA", name: "Karnataka", districts: ["Bengaluru Urban", "Mysuru", "Mangaluru"] },
-  { code: "TN", name: "Tamil Nadu", districts: ["Chennai", "Coimbatore", "Madurai"] },
-  { code: "UP", name: "Uttar Pradesh", districts: ["Lucknow", "Noida / Gautam Buddha Nagar", "Varanasi"] },
-  { code: "WB", name: "West Bengal", districts: ["Kolkata", "Howrah"] },
-];
+import { INDIAN_STATES, getDistrictsForState } from "@/data/indiaStatesAndDistricts";
 
 export default function TriagePage() {
   const router = useRouter();
@@ -75,14 +67,25 @@ export default function TriagePage() {
 
   const handleStateChange = (stateName: string) => {
     setSelectedState(stateName);
-    const foundState = INDIAN_STATES.find((s) => s.name === stateName);
-    if (foundState && foundState.districts.length > 0) {
-      setSelectedDistrict(foundState.districts[0]);
+    const districts = getDistrictsForState(stateName);
+    if (districts.length > 0) {
+      setSelectedDistrict(districts[0]);
+    } else {
+      setSelectedDistrict("");
     }
   };
 
-  const currentDistricts =
-    INDIAN_STATES.find((s) => s.name === selectedState)?.districts || [];
+  const currentDistricts = React.useMemo(() => {
+    return getDistrictsForState(selectedState);
+  }, [selectedState]);
+
+  // Ensure district is always valid for the selected state
+  React.useEffect(() => {
+    const districts = getDistrictsForState(selectedState);
+    if (districts.length > 0 && !districts.includes(selectedDistrict)) {
+      setSelectedDistrict(districts[0]);
+    }
+  }, [selectedState, selectedDistrict]);
 
   const handleContinue = (target: "/survivor/options" | "/survivor/resources") => {
     const triageData = {
@@ -305,13 +308,16 @@ export default function TriagePage() {
           {wantsLocalResources && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t animate-in fade-in-50">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                  Select State:
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center justify-between">
+                  <span>Select State:</span>
+                  <span className="text-[10px] text-muted-foreground font-normal">
+                    {INDIAN_STATES.length} States &amp; UTs
+                  </span>
                 </label>
                 <select
                   value={selectedState}
                   onChange={(e) => handleStateChange(e.target.value)}
-                  className="w-full rounded-md border border-input bg-background p-2.5 text-xs focus:ring-1 focus:ring-ring"
+                  className="w-full rounded-md border border-input bg-background p-2.5 text-xs focus:ring-1 focus:ring-ring text-foreground"
                 >
                   {INDIAN_STATES.map((s) => (
                     <option key={s.code} value={s.name}>
@@ -322,13 +328,16 @@ export default function TriagePage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                  Select District / City:
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center justify-between">
+                  <span>Select District / City:</span>
+                  <span className="text-[10px] text-muted-foreground font-normal">
+                    {currentDistricts.length} in {selectedState}
+                  </span>
                 </label>
                 <select
                   value={selectedDistrict}
                   onChange={(e) => setSelectedDistrict(e.target.value)}
-                  className="w-full rounded-md border border-input bg-background p-2.5 text-xs focus:ring-1 focus:ring-ring"
+                  className="w-full rounded-md border border-input bg-background p-2.5 text-xs focus:ring-1 focus:ring-ring text-foreground"
                 >
                   {currentDistricts.map((d) => (
                     <option key={d} value={d}>

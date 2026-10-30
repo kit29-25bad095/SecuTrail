@@ -18,9 +18,11 @@ import {
   Clock,
   HelpCircle,
   Flag,
+  MapPin,
 } from "lucide-react";
 import { LoadingState } from "@/components/ui/LoadingState";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { INDIAN_STATES, getDistrictsForState } from "@/data/indiaStatesAndDistricts";
 
 export default function SurvivorResourcesPage() {
   const [resources, setResources] = React.useState<VerifiedResource[]>([]);
@@ -33,12 +35,75 @@ export default function SurvivorResourcesPage() {
   // Progressive location context loaded from triage session if available
   const [userState, setUserState] = React.useState<string | null>(null);
   const [userDistrict, setUserDistrict] = React.useState<string | null>(null);
+  const [showLocationPicker, setShowLocationPicker] = React.useState<boolean>(false);
 
   // Reporting modal state
   const [reportModalOpen, setReportModalOpen] = React.useState<boolean>(false);
   const [reportingResourceName, setReportingResourceName] = React.useState<string>("");
   const [reportReason, setReportReason] = React.useState<string>("NUMBER_UNRESPONSIVE");
   const [reportSuccess, setReportSuccess] = React.useState<boolean>(false);
+
+  const handleStateSelect = (stateName: string) => {
+    setUserState(stateName);
+    const districts = getDistrictsForState(stateName);
+    const firstDistrict = districts.length > 0 ? districts[0] : null;
+    setUserDistrict(firstDistrict);
+
+    try {
+      const stored =
+        sessionStorage.getItem("secutrail_triage") ||
+        localStorage.getItem("secutrail_triage");
+      const current = stored ? JSON.parse(stored) : {};
+      current.state = stateName;
+      current.district = firstDistrict;
+      current.updatedAt = Date.now();
+      const serialized = JSON.stringify(current);
+      sessionStorage.setItem("secutrail_triage", serialized);
+      localStorage.setItem("secutrail_triage", serialized);
+    } catch {
+      // Safe fallback
+    }
+  };
+
+  const handleDistrictSelect = (districtName: string) => {
+    setUserDistrict(districtName);
+
+    try {
+      const stored =
+        sessionStorage.getItem("secutrail_triage") ||
+        localStorage.getItem("secutrail_triage");
+      const current = stored ? JSON.parse(stored) : {};
+      current.district = districtName;
+      current.updatedAt = Date.now();
+      const serialized = JSON.stringify(current);
+      sessionStorage.setItem("secutrail_triage", serialized);
+      localStorage.setItem("secutrail_triage", serialized);
+    } catch {
+      // Safe fallback
+    }
+  };
+
+  const handleClearLocation = () => {
+    setUserState(null);
+    setUserDistrict(null);
+    setShowLocationPicker(false);
+    try {
+      const stored =
+        sessionStorage.getItem("secutrail_triage") ||
+        localStorage.getItem("secutrail_triage");
+      if (stored) {
+        const current = JSON.parse(stored);
+        current.state = null;
+        current.district = null;
+        current.updatedAt = Date.now();
+        const serialized = JSON.stringify(current);
+        sessionStorage.setItem("secutrail_triage", serialized);
+        localStorage.setItem("secutrail_triage", serialized);
+      }
+    } catch {
+      // Safe fallback
+    }
+  };
 
   React.useEffect(() => {
     try {
@@ -138,31 +203,102 @@ export default function SurvivorResourcesPage() {
         </div>
       </div>
 
-      {/* Location Banner (if location provided) */}
-      {userState && (
-        <div className="rounded-lg bg-slate-100 dark:bg-slate-900 p-3 text-xs flex items-center justify-between">
+      {/* Location Filter Section */}
+      <div className="rounded-xl border border-border bg-card p-3 text-xs shadow-2xs space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-700 dark:text-slate-300">
-              Filtering for:
+            <MapPin className="h-4 w-4 text-emerald-600 shrink-0" />
+            <span className="font-semibold text-foreground">
+              {userState ? "Location Filter Active:" : "Location Filter:"}
             </span>
-            <Badge variant="secondary">
-              {[userDistrict, userState].filter(Boolean).join(", ")}
-            </Badge>
-            <span className="text-muted-foreground">(Plus National 24/7 Crisis Helplines)</span>
+            {userState ? (
+              <Badge variant="secondary" className="font-semibold">
+                {[userDistrict, userState].filter(Boolean).join(", ")}
+              </Badge>
+            ) : (
+              <span className="text-muted-foreground">Showing Pan-India National Helplines</span>
+            )}
           </div>
 
-          <button
-            type="button"
-            onClick={() => {
-              setUserState(null);
-              setUserDistrict(null);
-            }}
-            className="text-primary hover:underline text-[11px]"
-          >
-            Clear Location Filter
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowLocationPicker((prev) => !prev)}
+              className="text-primary hover:underline text-xs font-semibold cursor-pointer"
+            >
+              {showLocationPicker
+                ? "Close Location Selector"
+                : userState
+                ? "Change State / District"
+                : "Filter by State & District"}
+            </button>
+            {userState && (
+              <>
+                <span className="text-muted-foreground">•</span>
+                <button
+                  type="button"
+                  onClick={handleClearLocation}
+                  className="text-muted-foreground hover:text-foreground text-xs hover:underline cursor-pointer"
+                >
+                  Clear Filter
+                </button>
+              </>
+            )}
+          </div>
         </div>
-      )}
+
+        {showLocationPicker && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-border animate-in fade-in-50">
+            <div className="space-y-1">
+              <label className="text-xs font-semibold text-foreground flex items-center justify-between">
+                <span>Select State:</span>
+                <span className="text-[10px] text-muted-foreground font-normal">
+                  {INDIAN_STATES.length} States &amp; UTs
+                </span>
+              </label>
+              <select
+                value={userState || ""}
+                onChange={(e) => handleStateSelect(e.target.value)}
+                className="w-full rounded-md border border-input bg-background p-2 text-xs focus:ring-1 focus:ring-ring text-foreground"
+              >
+                <option value="" disabled>-- Select an Indian State / UT --</option>
+                {INDIAN_STATES.map((s) => (
+                  <option key={s.code} value={s.name}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-semibold text-foreground flex items-center justify-between">
+                <span>Select District / City:</span>
+                {userState && (
+                  <span className="text-[10px] text-muted-foreground font-normal">
+                    {getDistrictsForState(userState).length} in {userState}
+                  </span>
+                )}
+              </label>
+              <select
+                disabled={!userState}
+                value={userDistrict || ""}
+                onChange={(e) => handleDistrictSelect(e.target.value)}
+                className="w-full rounded-md border border-input bg-background p-2 text-xs focus:ring-1 focus:ring-ring text-foreground disabled:opacity-50"
+              >
+                {!userState ? (
+                  <option value="">First select a State above</option>
+                ) : (
+                  getDistrictsForState(userState).map((d) => (
+                    <option key={d} value={d}>
+                      {d}
+                    </option>
+                  ))
+                )}
+              </select>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Filter and Search Controls */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
