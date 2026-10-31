@@ -71,6 +71,7 @@ const CATEGORY_PROMPTS = [
 ];
 
 const QUICK_SUGGESTIONS = [
+  "I need some comforting words right now.",
   "I don't want to tell anyone yet.",
   "What if I don't want to report?",
   "What is PEP and the 72-hour window?",
@@ -83,9 +84,9 @@ const INITIAL_WELCOME_MESSAGE: ChatMessage = {
   id: "msg_welcome_initial",
   role: "assistant",
   content:
-    "Hello. I'm here as your confidential, sentimentally balanced support assistant.\n\n" +
-    "You can ask me questions about medical care (such as PEP within 72 hours), legal rights under Indian law (BNS 2023), or consent—or talk openly about how you're feeling.\n\n" +
-    "I respond with calm, grounded empathy and clear facts, without judgment or pressure. You remain in complete control. How can I support you right now?",
+    "Hello. Welcome to a safe, quiet space. I'm here as your confidential, gentle support assistant. ❤️\n\n" +
+    "You can ask me questions about time-sensitive medical care (such as PEP within 72 hours), understand your legal rights under Indian law (BNS 2023), or simply talk openly about how you're feeling.\n\n" +
+    "I will always speak with kindness, honesty, and calm care—never with judgment or pressure. You are in complete control of this space. How can I support you right now?",
   timestamp: Date.now(),
   relevantDomains: ["EMOTIONAL", "LEGAL", "MEDICAL"],
   citations: [],

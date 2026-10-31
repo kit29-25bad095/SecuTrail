@@ -182,6 +182,20 @@ async function runResponsiveTests() {
     assert.ok(res.response.toLowerCase().includes("pace"), "Must respect survivor pace");
   });
 
+  // Test L: Heartfelt soothing comfort sanctuary
+  await it("Provides deeply empathetic, soothing comfort when requested directly", async () => {
+    const res = await AdaptiveChatEngine.processTurn({
+      message: "not like this bruh i need a reply from u as a comforting soothing msg for mw",
+      sessionId: session.id,
+    });
+
+    assert.equal(res.context.conversationTopic, "SOOTHING_COMFORT_SANCTUARY");
+    assert.ok(res.response.includes("take a soft, deep breath") || res.response.includes("safe with me"), "Must offer gentle safety");
+    assert.ok(res.response.toLowerCase().includes("didn't deserve") || res.response.toLowerCase().includes("did not deserve"), "Must validate non-blame");
+    assert.ok(res.response.toLowerCase().includes("deserve kindness"), "Must reassure worth and kindness");
+    assert.ok(res.response.toLowerCase().includes("gentle with yourself"), "Must encourage self-gentleness");
+  });
+
   console.log("\n============================================================");
   console.log(`TOTAL: ${passed + failed} Tests | PASSED: ${passed} | FAILED: ${failed}`);
   console.log("============================================================\n");

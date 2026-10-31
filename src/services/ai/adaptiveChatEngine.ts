@@ -261,6 +261,15 @@ export class AdaptiveChatEngine {
       return "GENERAL_AWARENESS";
     }
 
+    // 0c. Direct Requests for Comforting / Soothing / Gentle Presence
+    if (
+      /\b(comfort(ing)?|sooth(ing)?|gentle|warmth|hold me|be gentle|kind words|need to hear|make me feel better|comfort me|hug|reassur(e|ing)|softly|bruh|soothing msg|comforting msg|sweet words|say something comforting|need a comforting|talk to me gently|hold space)\b/i.test(
+        text
+      )
+    ) {
+      return "EMOTIONAL_SUPPORT";
+    }
+
     // 1. Follow-up: Hesitation to disclose / tell anyone
     if (
       /\b(don'?t want to tell anyone|can'?t tell anyone|scared to tell|keep it private|not ready to talk|don'?t tell my parents)\b/i.test(
@@ -481,6 +490,16 @@ export class AdaptiveChatEngine {
           sanitizedInput
         );
 
+      const isComfortOrSoothingRequest =
+        /\b(comfort(ing)?|sooth(ing)?|gentle|warmth|hold me|be gentle|kind words|need to hear|make me feel better|comfort me|hug|reassur(e|ing)|softly|bruh|soothing msg|comforting msg|sweet words|say something comforting|need a comforting|talk to me gently|hold space)\b/i.test(
+          sanitizedInput
+        );
+
+      const isLongTermTraumaOrPain =
+        /\b(years? of (experience|pain|abuse|trauma)|experiences that you never deserved|pretend(ing)? everything is okay|pretend(ing)? everything was okay|less worthy|worthy of love|own your identity|deserve kindness|broken down|cried so much|tired of (being strong|fighting|crying))\b/i.test(
+          sanitizedInput
+        );
+
       let responseText = "";
       let topic = "EMOTIONAL_COPING";
       const citations: SourceCitation[] = [VERIFIED_SOURCES.who_clinical_rape];
@@ -518,71 +537,92 @@ export class AdaptiveChatEngine {
           "• **The Biology of Trauma (Freeze Response):** Involuntary nervous system reactions like freezing, going numb, or being unable to scream (tonic immobility) are physiological survival mechanisms—they are never consent or agreement.\n" +
           "• **Absolute Rights of Survivors:** Every survivor has enforceable statutory rights to free immediate emergency healthcare (Section 397 BNSS), independent forensic preservation without forced police reporting, full identity protection (Section 72 BNS), and free legal representation (NALSA 15100).\n\n" +
           "If you or someone you know has been affected, SecuTrail is here to support you with confidential medical timelines, legal protections, or emotional grounding at your own pace.";
+      } else if (isComfortOrSoothingRequest || isLongTermTraumaOrPain) {
+        topic = "SOOTHING_COMFORT_SANCTUARY";
+        citations.push(VERIFIED_SOURCES.who_clinical_rape);
+        responseText =
+          "Hey... come here for a moment and take a soft, deep breath. You are safe with me right now. ❤️\n\n" +
+          "I hear how tired you are, and I am so deeply sorry for the weight, the loneliness, and the pain you've had to carry. " +
+          "You've probably spent so many days having to pretend everything was okay on the outside, even when your heart was breaking on the inside.\n\n" +
+          "Please listen to me on this:\n\n" +
+          "You didn't deserve even one of those painful experiences. Not the first time, not the last time, and not any moment in between.\n\n" +
+          "You don't have to prove that you're strong right now by pretending it didn't hurt. You don't have to force a smile when you feel like breaking down, " +
+          "and you never have to explain or justify your pain to make it valid. Your pain is real, and your feelings matter.\n\n" +
+          "Please don't ever look at yourself and think you are somehow damaged, broken, or less worthy of love, tenderness, respect, and peace because of what other people did. " +
+          "They may have taken away moments of your peace, but they do not own your identity, your worth, or the beauty of your future story.\n\n" +
+          "If today all you can manage is to just breathe, rest, and get through the day, that is completely okay. You don't have to figure everything out tonight.\n\n" +
+          "I won't rush you. I won't judge you. And I will never ask you to share things you're not ready to share.\n\n" +
+          "Just remember this one thing: you deserved kindness then, you deserve kindness now, and you will always deserve it.\n\n" +
+          "Please be gentle with yourself tonight. You've been through so much. ❤️";
       } else if (isDisclosureHesitation) {
         topic = "HESITATION_TO_DISCLOSE";
         responseText =
-          "That's completely okay. You don't have to decide that right now, and you don't have to tell anyone until or unless you feel ready. " +
-          "Your safety, your autonomy, and your pace are what matter most.\n\n" +
+          "Hey... take a deep breath. That's completely okay. You don't have to decide that right now, and you don't have to tell anyone until or unless you feel ready. ❤️\n\n" +
+          "Your safety, your autonomy, and your pace are what matter most. You don't have to explain yourself to anyone to make your boundaries valid.\n\n" +
           "Everything in this space is completely private and anonymous. We can focus on understanding your options privately, " +
-          "or simply talk through what you're feeling without any pressure to take any action.";
+          "or simply give you quiet space to talk through what you're feeling without any pressure to take any action.";
       } else if (isStillScared) {
         topic = "PERSISTENT_FEAR_STABILIZATION";
         responseText =
-          "It makes complete sense that you are still feeling scared. Feeling safe again takes time, and you don't have to rush through this. " +
-          "You are safe in this conversation right now.\n\n" +
-          "If you'd like, we can try a gentle grounding exercise together (like the 5-4-3-2-1 sensory method to help your nervous system settle), " +
-          "or talk through confidential counseling resources like Tele-MANAS (14416). We can take this one small step at a time.";
+          "Hey... it makes complete sense that you are still feeling scared. ❤️\n\n" +
+          "Feeling safe again takes time, and you don't have to rush through this. You don't have to pretend you're okay when you're hurting.\n\n" +
+          "You are safe in this conversation right now. If you'd like, we can try a gentle grounding exercise together (like the 5-4-3-2-1 sensory method to help your nervous system settle), " +
+          "or talk through confidential counseling resources like Tele-MANAS (14416). We can take this one small step at a time. ❤️";
       } else if (isRefusalOfOption) {
         topic = "AUTONOMY_RESPECT";
         responseText =
-          "That is completely valid. You are in full control of every choice. If you don't want to do that, you don't have to. " +
-          "We can set that aside entirely.\n\n" +
+          "That is completely valid. You are in full control of every choice. If you don't want to do that, you don't have to. We can set that aside entirely. ❤️\n\n" +
+          "I will never push you, and I will never judge you.\n\n" +
           "What feels most helpful for you right now? We can explore gentle emotional coping strategies, look at purely informational rights, or just give you space to express what's on your mind.";
       } else if (isSelfBlameOrGuilt) {
         topic = "TRAUMA_SELF_BLAME_VALIDATION";
         responseText =
-          "First and most importantly: **this was not your fault in any way**.\n\n" +
+          "Hey... take a soft, gentle breath for a moment. You are safe here with me. ❤️\n\n" +
+          "First and most importantly: **this was not your fault in any way**. Not the first time, not the last time, and not any moment in between.\n\n" +
           "Under trauma science and clinical psychological guidelines (WHO Trauma Protocols):\n" +
-          "• **100% Perpetrator Responsibility:** Responsibility for sexual assault rests solely and entirely on the person who committed it.\n" +
+          "• **100% Perpetrator Responsibility:** Responsibility for sexual assault rests solely and entirely on the perpetrator who committed it. A survivor is never to blame, regardless of what occurred.\n" +
           "• **Why Guilt and Self-Blame Happen:** In the aftermath of trauma, the human mind searches for anything it could have done differently. Psychologically, this is an involuntary attempt by the brain to restore a sense of control over an uncontrollable, traumatic violation.\n" +
-          "• **The Freeze Response:** If your body froze, went numb, or couldn't fight or scream, that was an involuntary nervous system survival reflex (tonic immobility). It was not consent, submission, or agreement; it was your body doing what it could to survive.\n\n" +
-          "You did nothing wrong. You are safe in this conversation, and you can take all the time you need.";
+          "• **The Biology of the Freeze Reflex:** If your body froze, went numb, or couldn't fight or scream (an involuntary nervous system survival reflex known as tonic immobility or the freeze response), that was your body doing what it could to survive. It was biological self-preservation, never consent or agreement.\n\n" +
+          "You did nothing wrong. You don't have to carry the weight of what someone else chose to do. Please be gentle with yourself. You are safe in this conversation, and you can take all the time you need. ❤️";
       } else if (isPanicOrInsomnia) {
         topic = "INSOMNIA_PANIC_STABILIZATION";
         responseText =
-          "Having racing thoughts, a pounding heart, and trouble sleeping is a very common physiological reaction following trauma. Your nervous system is currently on high alert ('fight-or-flight') to protect you.\n\n" +
-          "Here are verified grounding techniques you can try right now:\n" +
+          "Hey... place a gentle hand on your chest or on your lap right now. Feel your breath. You are safe right here, right now. ❤️\n\n" +
+          "Having racing thoughts, a pounding heart, and trouble sleeping is a very common physiological reaction following trauma. Your nervous system is currently on high alert ('fight-or-flight') to protect you. You are not broken—your body is just trying hard to keep you safe.\n\n" +
+          "Here are gentle grounding techniques you can try right now:\n" +
           "• **4-7-8 Breathing:** Inhale gently through your nose for 4 seconds, hold your breath for 7 seconds, and exhale slowly through your mouth for 8 seconds. This activates the vagus nerve to calm your heart rate.\n" +
           "• **Sensory Grounding:** Place your feet firmly on the ground or wrap yourself in a heavy blanket. Name 5 things you can see and touch right now to remind your brain that you are safe in this physical moment.\n" +
-          "• **24/7 Confidential Mental Health Support:** You can speak with a trained psychological counselor at **Tele-MANAS (14416)**—it is free, government-backed, confidential, and available 24/7 across India.";
+          "• **24/7 Confidential Mental Health Support:** If the night feels too lonely or overwhelming, remember you can speak with a compassionate, trained psychological counselor at **Tele-MANAS (14416)**—it is free, government-backed, confidential, and available 24/7 across India.\n\n" +
+          "Take this one breath at a time. I am right here with you. ❤️";
       } else if (isGroundingOrFlashback) {
         topic = "TRAUMA_GROUNDING_54321";
         responseText =
-          "When trauma flashbacks or emotional numbness occur, your autonomic nervous system enters hyperarousal or freezing. Here is the verified **5-4-3-2-1 sensory grounding method** (WHO protocols):\n\n" +
+          "Hey... let's pause and ground together. When trauma flashbacks or emotional numbness occur, your nervous system is in hyperarousal or freezing. Here is the verified **5-4-3-2-1 sensory grounding method** (WHO protocols):\n\n" +
           "1. **Look around and name 5 things you can see** (e.g., a chair, a window, a light, a shoe, a wall).\n" +
           "2. **Acknowledge 4 things you can physically feel** (e.g., the texture of your clothes, the floor under your feet, the cool air).\n" +
           "3. **Notice 3 sounds you can hear** (e.g., a distant fan, passing vehicle, your own breathing).\n" +
           "4. **Identify 2 things you can smell** around you.\n" +
           "5. **Take 1 slow, deep, intentional breath in and out.**\n\n" +
-          "You are safe here right now. Take your time, and tell me whenever you feel ready to continue.";
+          "You are safe here right now. Take your time, and tell me whenever you feel ready to continue. ❤️";
       } else if (isTrustOrPrivacy) {
         topic = "PRIVACY_AND_TRUST_ASSURANCE";
         citations.push(VERIFIED_SOURCES.bns_2023_statute);
         responseText =
-          "You can trust that this space is completely private, anonymous, and secure:\n\n" +
+          "You can trust that this space is completely private, anonymous, and secure. You don't have to worry about anyone seeing this:\n\n" +
           "• **Zero Data Retention:** SecuTrail collects no personal details, phone numbers, emails, or IP addresses. Nothing is tracked or logged.\n" +
           "• **In-Memory Only:** Your messages exist only in your browser's temporary session and are purged automatically.\n" +
           "• **Instant Quick Exit:** You can clear everything instantly at any moment by pressing ESC twice or clicking 'Quick Exit'.\n\n" +
-          "You are in full control of how much or how little you share.";
+          "You are in full control of how much or how little you share. I am here to hold a safe space for you.";
       } else if (isBrokenOrHopeless) {
         topic = "TRAUMA_HEALING_VALIDATION";
         citations.push(VERIFIED_SOURCES.who_clinical_rape);
         responseText =
-          "It is very common to feel broken or permanently changed after trauma, but feeling this way does not mean you are damaged.\n\n" +
+          "Hey... please hear me on this: feeling broken does not mean you are damaged. ❤️\n\n" +
+          "What you have survived is abnormal and heavy, but your worth is untouched and you are not ruined:\n\n" +
           "• **A Natural Nervous System Response:** Severe trauma temporarily overwhelms the brain's ability to integrate experience. What you are feeling is your mind and body doing their best to survive an abnormal violation.\n" +
-          "• **Healing & Recalibration:** Healing is not a straight line, but with emotional safety, patience, and gentle support, the nervous system can and does recover.\n" +
+          "• **Healing & Reclaiming Peace:** Healing is not a straight line, but with emotional safety, patience, and gentle support, the nervous system can and does recover.\n" +
           "• **24/7 Professional Counseling:** When you feel ready, you can speak with a compassionate, trained counselor at **Tele-MANAS (14416)**—it is confidential, government-backed, and free across India.\n\n" +
-          "You are not alone, and you can take this at whatever pace feels right to you.";
+          "They may have taken moments of your peace, but they do not own your identity, your worth, or your story. You are not alone, and you can take this at whatever pace feels right to you. Please be gentle with yourself. ❤️";
       } else {
         const { bestSnippet, highestScore } = AdaptiveChatEngine.findBestKnowledgeSnippet(sanitizedInput);
         if (bestSnippet && highestScore >= 3) {
@@ -603,12 +643,12 @@ export class AdaptiveChatEngine {
             topic = "EMOTIONAL_FIRST_AID";
             const hasPreviousConversation = previousContext.turnCount > 0;
             const continuityLead = hasPreviousConversation
-              ? "I hear you, and it is completely normal to feel this way after what you've been through. "
-              : "I hear you, and you don't have to figure everything out at once. ";
+              ? "Hey... I hear you, and it is completely normal to feel this way after what you've been through. "
+              : "Hey... I hear you, and you don't have to figure everything out at once. ";
 
             responseText =
-              `${continuityLead}We can take this one step at a time. ` +
-              "Your feelings are valid, and there is no right or wrong way to feel.\n\n" +
+              `${continuityLead}We can take this one step at a time. ❤️\n\n` +
+              "Your feelings are valid, and there is no right or wrong way to feel or heal. You don't have to pretend to be strong right now.\n\n" +
               "You are safe in this conversation right now. If you'd like, we can try a gentle grounding exercise to help your body feel steadier, look at supportive options together at your own pace, or simply give you space to express what's on your mind. You remain completely in control.";
           } else {
             topic = "CONVERSATIONAL_ASSISTANCE";
@@ -1200,11 +1240,12 @@ export class AdaptiveChatEngine {
     request: ConversationTurnRequest
   ): Promise<ConversationTurnResponse> {
     const responseText =
-      "What you are experiencing right now is incredibly heavy, and you do not have to carry it alone. " +
-      "If you are feeling overwhelmed, hopeless, or having thoughts of self-harm, compassionate professionals are available 24/7:\n\n" +
+      "Hey... please stay with me for a moment and take a soft, gentle breath. ❤️\n\n" +
+      "What you are experiencing right now is incredibly heavy, and it makes complete sense that you feel overwhelmed. But please know this: you do not have to carry it alone, and you matter.\n\n" +
+      "Compassionate, trained professionals are waiting right now to offer a kind, listening ear—completely free, anonymous, and confidential 24/7:\n\n" +
       "• **Tele-MANAS (MoHFW National Mental Health Helpline):** Dial **14416** (Toll-Free, 24/7)\n" +
       "• **Kiran Mental Health Helpline:** Dial **1800-599-0019** (Toll-Free, 24/7)\n\n" +
-      "These services are completely confidential and free. Please stay connected. We can take this one breath and one moment at a time.";
+      "These services are completely confidential and free. Please stay connected. We can take this one breath and one moment at a time. I'm right here with you.";
 
     const updatedContext: EphemeralConversationContext = {
       conversationTopic: "CRISIS_EMOTIONAL_STABILIZATION",
