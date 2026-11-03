@@ -196,6 +196,43 @@ async function runResponsiveTests() {
     assert.ok(res.response.toLowerCase().includes("gentle with yourself"), "Must encourage self-gentleness");
   });
 
+  // Test M: Open listening invitation for sharing intent
+  await it("Responds with open listening when user says 'i want to share something with you'", async () => {
+    const res = await AdaptiveChatEngine.processTurn({
+      message: "i want to share something with you",
+      sessionId: session.id,
+    });
+
+    assert.equal(res.context.conversationTopic, "OPEN_LISTENING_INVITATION");
+    assert.ok(!res.response.includes("Forensic Examination"), "Must NOT dump forensic examination statutes");
+    assert.ok(res.response.includes("listening") && res.response.includes("take all the time you need"), "Must invite sharing warmly");
+  });
+
+  // Test N: Presence and warmth for loneliness without trauma assumptions
+  await it("Validates loneliness without falsely assuming past trauma", async () => {
+    const res = await AdaptiveChatEngine.processTurn({
+      message: "i am feeling alone",
+      sessionId: session.id,
+    });
+
+    assert.equal(res.context.conversationTopic, "EMOTIONAL_PRESENCE_AND_LONELINESS");
+    assert.ok(!res.response.includes("after what you've been through"), "Must not assume past trauma");
+    assert.ok(res.response.includes("Feeling alone") || res.response.includes("overwhelmed"), "Must acknowledge loneliness");
+  });
+
+  // Test O: Graceful apology when user corrects an assumption
+  await it("Humbly apologizes and listens when user corrects an unfounded assumption", async () => {
+    const res = await AdaptiveChatEngine.processTurn({
+      message: "i hadnt said anythhing like i went through something then how ur finalizing i had went through",
+      sessionId: session.id,
+    });
+
+    assert.equal(res.context.conversationTopic, "USER_CLARIFICATION_AND_APOLOGY");
+    assert.ok(!res.response.includes("Digital Harassment"), "Must NOT dump digital harassment statutes");
+    assert.ok(res.response.includes("sorry for making an assumption"), "Must apologize sincerely");
+    assert.ok(res.response.includes("calling me out on that"), "Must thank user for clarifying");
+  });
+
   console.log("\n============================================================");
   console.log(`TOTAL: ${passed + failed} Tests | PASSED: ${passed} | FAILED: ${failed}`);
   console.log("============================================================\n");

@@ -24,7 +24,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_1_OFFICIAL_GOVERNMENT",
     lastVerified: "2026-08-15T00:00:00Z",
-    nextReview: "2026-11-15T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "Ministry of Home Affairs Gazette",
     sourceUrl: "https://112.gov.in",
     services: [
@@ -53,7 +53,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_1_OFFICIAL_GOVERNMENT",
     lastVerified: "2026-08-20T00:00:00Z",
-    nextReview: "2026-11-20T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "MWCD Official Portal",
     sourceUrl: "https://wcd.nic.in",
     services: [
@@ -83,7 +83,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_1_OFFICIAL_GOVERNMENT",
     lastVerified: "2026-08-10T00:00:00Z",
-    nextReview: "2026-11-10T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "Ministry of Health and Family Welfare",
     sourceUrl: "https://telemanas.mohfw.gov.in",
     services: [
@@ -112,7 +112,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_1_OFFICIAL_GOVERNMENT",
     lastVerified: "2026-08-01T00:00:00Z",
-    nextReview: "2026-11-01T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "NALSA Official Portal",
     sourceUrl: "https://nalsa.gov.in",
     services: [
@@ -141,7 +141,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_1_OFFICIAL_GOVERNMENT",
     lastVerified: "2026-08-12T00:00:00Z",
-    nextReview: "2026-11-12T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "MWCD Notification",
     sourceUrl: "https://wcd.nic.in",
     services: [
@@ -174,7 +174,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_1_OFFICIAL_GOVERNMENT",
     lastVerified: "2026-08-25T00:00:00Z",
-    nextReview: "2026-11-25T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "Ministry of Women & Child Development Directory",
     sourceUrl: "https://wcd.nic.in/schemes/one-stop-centre-scheme-1",
     services: [
@@ -205,7 +205,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_1_OFFICIAL_GOVERNMENT",
     lastVerified: "2026-08-18T00:00:00Z",
-    nextReview: "2026-11-18T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "MoHFW Hospital Registry",
     sourceUrl: "https://vmmc-sjh.nic.in",
     services: [
@@ -234,7 +234,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_1_OFFICIAL_GOVERNMENT",
     lastVerified: "2026-08-05T00:00:00Z",
-    nextReview: "2026-11-05T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "Delhi State Legal Services Authority Gazette",
     sourceUrl: "http://dslsa.org",
     services: [
@@ -267,7 +267,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_2_VETTED_NGO",
     lastVerified: "2026-08-22T00:00:00Z",
-    nextReview: "2026-10-22T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "MCGM & CEHAT Joint Program Audit",
     sourceUrl: "https://www.cehat.org",
     services: [
@@ -300,7 +300,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_1_OFFICIAL_GOVERNMENT",
     lastVerified: "2026-08-14T00:00:00Z",
-    nextReview: "2026-11-14T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "Ministry of Health and Family Welfare",
     sourceUrl: "https://nimhans.ac.in",
     services: [
@@ -329,7 +329,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_1_OFFICIAL_GOVERNMENT",
     lastVerified: "2026-08-16T00:00:00Z",
-    nextReview: "2026-11-16T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "Bengaluru City Police Official Roster",
     sourceUrl: "https://bengalurucitypolice.karnataka.gov.in",
     services: [
@@ -363,7 +363,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_3_COMMUNITY_VERIFIED",
     lastVerified: "2026-09-01T00:00:00Z",
-    nextReview: "2026-10-01T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "SecuTrail Simulation Engine",
     sourceUrl: "https://example.org",
     services: [
@@ -392,7 +392,7 @@ export const VERIFIED_INDIA_RESOURCES: VerifiedResource[] = [
     verificationStatus: "VERIFIED",
     authorityLevel: "TIER_3_COMMUNITY_VERIFIED",
     lastVerified: "2026-09-05T00:00:00Z",
-    nextReview: "2026-10-05T00:00:00Z",
+    nextReview: "2027-11-15T00:00:00Z",
     sourceOrganization: "SecuTrail Simulation Engine",
     sourceUrl: "https://example.org",
     services: [

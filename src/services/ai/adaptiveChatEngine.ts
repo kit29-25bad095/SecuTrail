@@ -270,6 +270,24 @@ export class AdaptiveChatEngine {
       return "EMOTIONAL_SUPPORT";
     }
 
+    // 0d. Conversational Openers & Intent to Share
+    if (
+      /\b(want to (ask|share|talk|tell)|something (in|on) my mind|share something|tell you something|can i ask( you)?|can i tell you|can we talk|need to talk to someone|listen to me|hear me out|talk with someone|talk to someone)\b/i.test(
+        text
+      )
+    ) {
+      return "EMOTIONAL_SUPPORT";
+    }
+
+    // 0e. User Clarifying or Correcting an Assumption
+    if (
+      /\b(i had(n'?t)? said|i didn'?t say|how (are|r) (you|ur) finalizing|why (are|r) you assuming|stop assuming|you('re| are) assuming|i never said|that'?s not what i (said|meant)|don'?t assume)\b/i.test(
+        text
+      )
+    ) {
+      return "EMOTIONAL_SUPPORT";
+    }
+
     // 1. Follow-up: Hesitation to disclose / tell anyone
     if (
       /\b(don'?t want to tell anyone|can'?t tell anyone|scared to tell|keep it private|not ready to talk|don'?t tell my parents)\b/i.test(
@@ -378,6 +396,31 @@ export class AdaptiveChatEngine {
     return Array.from(new Set([...context.emotionalContext, ...currentEmotions])).slice(-5);
   }
 
+  // Common conversational stop words that must never trigger a knowledge chunk match
+  private static readonly STOP_WORDS = new Set([
+    "a", "about", "above", "after", "again", "all", "am", "an", "and", "any", "are", "aren't",
+    "as", "at", "be", "because", "been", "before", "being", "below", "between", "both", "but",
+    "by", "can", "can't", "cannot", "could", "did", "do", "does", "doing", "down", "during",
+    "each", "few", "for", "from", "further", "had", "hadn't", "has", "hasn't", "have", "haven't",
+    "having", "he", "he'd", "he'll", "he's", "her", "here", "here's", "hers", "herself", "him",
+    "himself", "his", "how", "how's", "i", "i'd", "i'll", "i'm", "i've", "if", "in", "into",
+    "is", "isn't", "it", "it's", "its", "itself", "let's", "me", "more", "most", "mustn't",
+    "my", "myself", "no", "nor", "not", "of", "off", "on", "once", "only", "or", "other",
+    "ought", "our", "ours", "ourselves", "out", "over", "own", "same", "shan't", "she", "she'd",
+    "she'll", "she's", "should", "shouldn't", "so", "some", "such", "than", "that", "that's",
+    "the", "their", "theirs", "them", "themselves", "then", "there", "there's", "these", "they",
+    "they'd", "they'll", "they're", "they've", "this", "those", "through", "to", "too", "under",
+    "until", "up", "very", "was", "wasn't", "we", "we'd", "we'll", "we're", "we've", "were",
+    "weren't", "what", "what's", "when", "when's", "where", "where's", "which", "while", "who",
+    "who's", "whom", "why", "why's", "with", "won't", "would", "wouldn't", "you", "you'd",
+    "you'll", "you're", "you've", "your", "yours", "yourself", "yourselves",
+    // Conversational fillers & ambiguous general verbs
+    "want", "ask", "something", "mind", "past", "year", "years", "say", "said", "telling", "tell",
+    "went", "going", "go", "someone", "talk", "talking", "thing", "things", "like", "know",
+    "really", "just", "bruh", "fine", "okay", "help", "please", "share", "sharing", "feel",
+    "feeling", "alone", "lonely", "overwhelmed", "anyone", "now", "today", "tomorrow", "day"
+  ]);
+
   /**
    * Helper to find the best matching verified knowledge chunk from the vetted database
    */
@@ -388,26 +431,47 @@ export class AdaptiveChatEngine {
     const queryTokens = input
       .toLowerCase()
       .split(/[^a-z0-9]+/)
-      .filter((t) => t.length > 2);
+      .filter((t) => t.length > 2 && !AdaptiveChatEngine.STOP_WORDS.has(t));
+
+    if (queryTokens.length === 0) {
+      return { bestSnippet: null, highestScore: 0 };
+    }
 
     let bestSnippet: (typeof VERIFIED_KNOWLEDGE_CHUNKS)[0] | null = null;
     let highestScore = 0;
 
     for (const chunk of VERIFIED_KNOWLEDGE_CHUNKS) {
       let score = 0;
+      let matchedInTitleOrTopic = false;
+
       const titleLower = chunk.title.toLowerCase();
       const topicLower = chunk.topic.toLowerCase().replace(/_/g, " ");
       const contentLower = chunk.content.toLowerCase();
 
       for (const token of queryTokens) {
-        if (titleLower.includes(token)) score += 3;
-        if (topicLower.includes(token)) score += 2;
-        if (contentLower.includes(token)) score += 1;
+        // Whole-word boundary matching to prevent partial substring false positives
+        const wordRegex = new RegExp(`\\b${token}\\b`, "i");
+
+        if (wordRegex.test(titleLower)) {
+          score += 5;
+          matchedInTitleOrTopic = true;
+        }
+        if (wordRegex.test(topicLower)) {
+          score += 4;
+          matchedInTitleOrTopic = true;
+        }
+        if (wordRegex.test(contentLower)) {
+          score += 1;
+        }
       }
 
-      if (score > highestScore) {
-        highestScore = score;
-        bestSnippet = chunk;
+      // Strict relevance gate: require meaningful keywords AND match in title/topic (score >= 5)
+      // or substantial domain match (score >= 7)
+      if ((matchedInTitleOrTopic && score >= 5) || score >= 7) {
+        if (score > highestScore) {
+          highestScore = score;
+          bestSnippet = chunk;
+        }
       }
     }
 
@@ -500,6 +564,21 @@ export class AdaptiveChatEngine {
           sanitizedInput
         );
 
+      const isUserCorrectingAssumption =
+        /\b(i had(n'?t)? said|i didn'?t say|how (are|r) (you|ur) finalizing|why (are|r) you assuming|stop assuming|you('re| are) assuming|i never said|that'?s not what i (said|meant)|don'?t assume)\b/i.test(
+          sanitizedInput
+        );
+
+      const isOpenEndedSharingOrQuestion =
+        /\b(want to (ask|share|talk|tell)|something (in|on) my mind|share something|tell you something|can i ask( you)?|can i tell you|can we talk|need to talk to someone|listen to me|hear me out|talk with someone|talk to someone)\b/i.test(
+          sanitizedInput
+        );
+
+      const isFeelingAloneOrOverwhelmed =
+        /\b(feeling alone|feel alone|lonely|so alone|all alone|feeling isolated|isolated|feeling overwhelmed|feel overwhelmed|overwhelmed and need someone|need someone to talk to)\b/i.test(
+          sanitizedInput
+        );
+
       let responseText = "";
       let topic = "EMOTIONAL_COPING";
       const citations: SourceCitation[] = [VERIFIED_SOURCES.who_clinical_rape];
@@ -537,6 +616,31 @@ export class AdaptiveChatEngine {
           "• **The Biology of Trauma (Freeze Response):** Involuntary nervous system reactions like freezing, going numb, or being unable to scream (tonic immobility) are physiological survival mechanisms—they are never consent or agreement.\n" +
           "• **Absolute Rights of Survivors:** Every survivor has enforceable statutory rights to free immediate emergency healthcare (Section 397 BNSS), independent forensic preservation without forced police reporting, full identity protection (Section 72 BNS), and free legal representation (NALSA 15100).\n\n" +
           "If you or someone you know has been affected, SecuTrail is here to support you with confidential medical timelines, legal protections, or emotional grounding at your own pace.";
+      } else if (isUserCorrectingAssumption) {
+        topic = "USER_CLARIFICATION_AND_APOLOGY";
+        responseText =
+          "You are completely right, and I am so sorry for making an assumption. ❤️\n\n" +
+          "You only shared how you were feeling, and I should never have jumped ahead or assumed you had been through trauma. Thank you for calling me out on that.\n\n" +
+          "I am here to listen to you as you are right now, without guessing or putting labels on your experience. If you'd like to talk about what's going on or how you're feeling today, I'm right here to listen—completely on your terms.";
+      } else if (isDisclosureHesitation) {
+        topic = "HESITATION_TO_DISCLOSE";
+        responseText =
+          "Hey... take a deep breath. That's completely okay. You don't have to decide that right now, and you don't have to tell anyone until or unless you feel ready. ❤️\n\n" +
+          "Your safety, your autonomy, and your pace are what matter most. You don't have to explain yourself to anyone to make your boundaries valid.\n\n" +
+          "Everything in this space is completely private and anonymous. We can focus on understanding your options privately, " +
+          "or simply give you quiet space to talk through what you're feeling without any pressure to take any action.";
+      } else if (isOpenEndedSharingOrQuestion) {
+        topic = "OPEN_LISTENING_INVITATION";
+        responseText =
+          "I am right here, and I'm listening. Please take all the time you need. ❤️\n\n" +
+          "You can share whatever is on your mind whenever you feel ready—whether it's something that happened recently, something you've been carrying for years, or just how you're feeling today.\n\n" +
+          "There is no rush, no pressure, and no judgment here. What's on your mind?";
+      } else if (isFeelingAloneOrOverwhelmed) {
+        topic = "EMOTIONAL_PRESENCE_AND_LONELINESS";
+        responseText =
+          "Hey... I hear you. Feeling alone or overwhelmed can be so heavy and exhausting, and I'm really glad you reached out. ❤️\n\n" +
+          "You don't have to carry that weight all by yourself right now. I'm right here with you in this safe space.\n\n" +
+          "If you'd like to talk about why you're feeling this way, I'm here to listen. Or if you just need some calm, gentle words without having to explain anything at all, that is completely okay too. We can take this one step at a time.";
       } else if (isComfortOrSoothingRequest || isLongTermTraumaOrPain) {
         topic = "SOOTHING_COMFORT_SANCTUARY";
         citations.push(VERIFIED_SOURCES.who_clinical_rape);
@@ -554,13 +658,6 @@ export class AdaptiveChatEngine {
           "I won't rush you. I won't judge you. And I will never ask you to share things you're not ready to share.\n\n" +
           "Just remember this one thing: you deserved kindness then, you deserve kindness now, and you will always deserve it.\n\n" +
           "Please be gentle with yourself tonight. You've been through so much. ❤️";
-      } else if (isDisclosureHesitation) {
-        topic = "HESITATION_TO_DISCLOSE";
-        responseText =
-          "Hey... take a deep breath. That's completely okay. You don't have to decide that right now, and you don't have to tell anyone until or unless you feel ready. ❤️\n\n" +
-          "Your safety, your autonomy, and your pace are what matter most. You don't have to explain yourself to anyone to make your boundaries valid.\n\n" +
-          "Everything in this space is completely private and anonymous. We can focus on understanding your options privately, " +
-          "or simply give you quiet space to talk through what you're feeling without any pressure to take any action.";
       } else if (isStillScared) {
         topic = "PERSISTENT_FEAR_STABILIZATION";
         responseText =
@@ -624,41 +721,38 @@ export class AdaptiveChatEngine {
           "• **24/7 Professional Counseling:** When you feel ready, you can speak with a compassionate, trained counselor at **Tele-MANAS (14416)**—it is confidential, government-backed, and free across India.\n\n" +
           "They may have taken moments of your peace, but they do not own your identity, your worth, or your story. You are not alone, and you can take this at whatever pace feels right to you. Please be gentle with yourself. ❤️";
       } else {
-        const { bestSnippet, highestScore } = AdaptiveChatEngine.findBestKnowledgeSnippet(sanitizedInput);
-        if (bestSnippet && highestScore >= 3) {
-          topic = bestSnippet.topic;
-          citations.push(bestSnippet.source);
+        const isExpressingEmotion =
+          /\b(scared|terrified|afraid|numb|crying|cry|sad|hurt|pain|anxiety|anxious|panic|overwhelmed|shame|guilt|alone|lonely|confused|uncertain|depressed|hopeless|stress|nightmare|shaking)\b/i.test(
+            sanitizedInput
+          );
+
+        if (isExpressingEmotion) {
+          topic = "EMOTIONAL_FIRST_AID";
+          const hasPreviousConversation = previousContext.turnCount > 0;
+          const continuityLead = hasPreviousConversation
+            ? "Hey... I hear you, and it is completely okay to feel this way right now. "
+            : "Hey... I hear you, and you don't have to figure everything out at once. ";
+
           responseText =
-            `Here is the verified information regarding **${bestSnippet.title}**:\n\n` +
-            `${bestSnippet.content}\n\n` +
-            `This guidance is grounded in official records from the ${bestSnippet.source.organization}. ` +
-            `You have complete control over how to proceed, and support is available whenever you need it.`;
+            `${continuityLead}We can take this one step at a time. ❤️\n\n` +
+            "Your feelings are valid, and there is no right or wrong way to feel or heal. You don't have to pretend to be strong or force a smile.\n\n" +
+            "You are safe in this conversation right now. If you'd like, we can try a gentle grounding exercise to help your body feel steadier, look at supportive options together at your own pace, or simply give you space to express whatever is on your mind. You remain completely in control.";
         } else {
-          const isExpressingEmotion =
-            /\b(scared|terrified|afraid|numb|crying|cry|sad|hurt|pain|anxiety|anxious|panic|overwhelmed|shame|guilt|alone|lonely|confused|uncertain|depressed|hopeless|stress|nightmare|shaking)\b/i.test(
-              sanitizedInput
-            );
-
-          if (isExpressingEmotion) {
-            topic = "EMOTIONAL_FIRST_AID";
-            const hasPreviousConversation = previousContext.turnCount > 0;
-            const continuityLead = hasPreviousConversation
-              ? "Hey... I hear you, and it is completely normal to feel this way after what you've been through. "
-              : "Hey... I hear you, and you don't have to figure everything out at once. ";
-
+          const { bestSnippet, highestScore } = AdaptiveChatEngine.findBestKnowledgeSnippet(sanitizedInput);
+          if (bestSnippet && highestScore >= 5) {
+            topic = bestSnippet.topic;
+            citations.push(bestSnippet.source);
             responseText =
-              `${continuityLead}We can take this one step at a time. ❤️\n\n` +
-              "Your feelings are valid, and there is no right or wrong way to feel or heal. You don't have to pretend to be strong right now.\n\n" +
-              "You are safe in this conversation right now. If you'd like, we can try a gentle grounding exercise to help your body feel steadier, look at supportive options together at your own pace, or simply give you space to express what's on your mind. You remain completely in control.";
+              `Here is the verified information regarding **${bestSnippet.title}**:\n\n` +
+              `${bestSnippet.content}\n\n` +
+              `This guidance is grounded in official records from the ${bestSnippet.source.organization}. ` +
+              `You have complete control over how to proceed, and support is available whenever you need it.`;
           } else {
             topic = "CONVERSATIONAL_ASSISTANCE";
             responseText =
-              "I am here to assist you with confidential, trauma-informed guidance. " +
-              "You can ask me questions about:\n" +
-              "• **Emergency Healthcare:** Timelines for HIV PEP (within 72 hours), emergency contraception, or evidence preservation.\n" +
-              "• **Legal Protections:** Zero-FIR rights under BNS 2023, police refusal penalties, and free legal aid (NALSA 15100).\n" +
-              "• **Emotional & Counseling Support:** Grounding exercises (5-4-3-2-1), panic stabilization, and 24/7 hotlines like Tele-MANAS (14416).\n\n" +
-              "What would you like to know or discuss?";
+              "I am right here with you in this safe space. ❤️\n\n" +
+              "Whether you want to talk about how you are feeling, ask about time-sensitive medical care (such as PEP within 72 hours), understand your legal rights (BNS 2023), or just have a quiet, listening ear without pressure—I am here.\n\n" +
+              "What would feel most helpful for you right now?";
           }
         }
       }
