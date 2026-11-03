@@ -1,8 +1,18 @@
+"use client";
+
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Shield, ShieldAlert } from "lucide-react";
 
 export function Footer() {
+  const pathname = usePathname();
+
+  // On full-screen assistant chat view, suppress static footer for ChatGPT-like experience
+  if (pathname === "/survivor/assistant") {
+    return null;
+  }
+
   return (
     <footer className="border-t border-border bg-card text-card-foreground text-xs transition-colors">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">

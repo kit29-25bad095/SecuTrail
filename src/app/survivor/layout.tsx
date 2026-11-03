@@ -46,6 +46,15 @@ export default function SurvivorLayout({
     }
   }, []);
 
+  // For the AI Assistant chat, render a full-screen ChatGPT-like container without the 5-step triage bar
+  if (pathname === "/survivor/assistant") {
+    return (
+      <div className="flex flex-col flex-1 h-[calc(100dvh-105px)] overflow-hidden bg-background w-full">
+        {children}
+      </div>
+    );
+  }
+
   const steps = [
     { href: "/survivor/safety", label: "01 Immediate Safety", icon: ShieldAlert },
     { href: "/survivor/triage", label: "02 Triage Care", icon: GitFork },
@@ -56,7 +65,6 @@ export default function SurvivorLayout({
 
   return (
     <div className="flex flex-col flex-1 bg-background min-h-screen">
-
       {/* Survivor Track Sub-header & Navigation bar */}
       <div className="border-b border-primary/20 bg-background/95 px-4 py-3 sm:px-6">
         <div className="mx-auto max-w-7xl flex flex-col md:flex-row md:items-center justify-between gap-4">
